@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.hitomi.crazyshadow.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="200dp"
+        android:layout_height="200dp" />
+
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="200dp"
+        android:layout_height="200dp">
+    </FrameLayout>
+
+    <com.hitomi.cslibrary.CornerShadowView
+        android:layout_marginTop="50dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/frame_layout"-->
+        <!--android:layout_marginTop="50dp"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:background="#72b172">-->
+
+    <!--</FrameLayout>-->
+
+    <!--<android.support.v7.widget.CardView-->
+    <!--android:layout_marginTop="20dp"-->
+    <!--android:layout_width="200dp"-->
+    <!--android:layout_height="200dp"-->
+    <!--app:cardCornerRadius="4dp">-->
+
+
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="#72b172" />-->
+
+    <!--</android.support.v7.widget.CardView>-->
+
+
+</LinearLayout>
