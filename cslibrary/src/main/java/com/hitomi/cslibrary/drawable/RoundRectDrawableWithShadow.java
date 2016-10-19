@@ -1,4 +1,4 @@
-package com.hitomi.cslibrary;
+package com.hitomi.cslibrary.drawable;
 
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;

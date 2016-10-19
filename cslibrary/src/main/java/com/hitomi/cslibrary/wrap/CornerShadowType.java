@@ -1,4 +1,4 @@
-package com.hitomi.cslibrary;
+package com.hitomi.cslibrary.wrap;
 
 import android.support.annotation.IntDef;
 

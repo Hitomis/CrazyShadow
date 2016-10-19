@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
-import com.hitomi.cslibrary.RoundRectDrawableWithShadow;
+import com.hitomi.cslibrary.drawable.RoundRectDrawableWithShadow;
 import com.hitomi.cslibrary.ShadowLayout;
 
 public class MainActivity extends AppCompatActivity {

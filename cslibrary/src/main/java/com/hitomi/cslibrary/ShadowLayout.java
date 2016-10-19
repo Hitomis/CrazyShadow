@@ -7,6 +7,11 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
+import com.hitomi.cslibrary.wrap.CornerShadowType;
+import com.hitomi.cslibrary.wrap.CornerShadowView;
+import com.hitomi.cslibrary.wrap.EdgeShadowView;
+
+
 /**
  * Created by hitomi on 2016/10/17.
  */
@@ -39,19 +44,6 @@ public class ShadowLayout extends RelativeLayout {
         contentView.getViewTreeObserver().addOnGlobalLayoutListener(measureListener);
     }
 
-    private class OnMeasureListener implements ViewTreeObserver.OnGlobalLayoutListener {
-
-        @Override
-        public void onGlobalLayout() {
-            if (init) {
-                prepareLayout();
-                addShadow();
-                init = false;
-                getViewTreeObserver().removeGlobalOnLayoutListener(this);
-            }
-        }
-    }
-
     private void prepareLayout() {
         ShadowLayout shadowLayout = ShadowLayout.this;
         ViewGroup parent = (ViewGroup) contentView.getParent();
@@ -69,46 +61,64 @@ public class ShadowLayout extends RelativeLayout {
     }
 
     private void addShadow() {
-        int verHeight = (int) (contentView.getHeight()  - shadowRadius * 2);
-        int horWidth = (int) (contentView.getWidth() - shadowRadius * 2);
-        int verWidth, horHeigth;
-        verWidth = horHeigth = (int) shadowRadius;
+        float verHeight = contentView.getHeight() - shadowRadius * 2;
+        float horWidth = contentView.getWidth() - shadowRadius * 2;
+        float verWidth, horHeigth;
+        verWidth = horHeigth = shadowRadius;
+
+        EdgeShadowView.Builder edgeShadowBuilder = new EdgeShadowView.Builder();
+        CornerShadowView.Builder cornerShadowbuilder = new CornerShadowView.Builder();
 
         // 放在 contetnView 的 lfet 位置
-        EdgeShadowView leftShadow = new EdgeShadowView(getContext());
-        leftShadow.setDirection(ShadowDirection.LEFT);
-        RelativeLayout.LayoutParams leftRlp = new LayoutParams(verWidth, verHeight);
+        EdgeShadowView leftEdgeShadow = edgeShadowBuilder.setContext(getContext())
+                .setShadowRadius(verWidth)
+                .setShadowSize(verHeight)
+                .setDirection(ShadowDirection.LEFT)
+                .create();
+        RelativeLayout.LayoutParams leftRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
         leftRlp.addRule(ALIGN_PARENT_LEFT);
         leftRlp.addRule(CENTER_VERTICAL);
-        addView(leftShadow, leftRlp);
+        addView(leftEdgeShadow, leftRlp);
 
         // 放在 contetnView 的 top 位置
-        EdgeShadowView topShadow = new EdgeShadowView(getContext());
-        topShadow.setDirection(ShadowDirection.TOP);
-        RelativeLayout.LayoutParams topRlp = new LayoutParams(horWidth, horHeigth);
+        EdgeShadowView topEdgeShadow = edgeShadowBuilder
+                .setShadowRadius(horHeigth)
+                .setShadowSize(horWidth)
+                .setDirection(ShadowDirection.TOP)
+                .create();
+        RelativeLayout.LayoutParams topRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
         topRlp.addRule(ALIGN_PARENT_TOP);
         topRlp.addRule(CENTER_HORIZONTAL);
-        addView(topShadow, topRlp);
+        addView(topEdgeShadow, topRlp);
 
         // 放在 contetnView 的 Right 位置
-        EdgeShadowView rightShadow = new EdgeShadowView(getContext());
-        rightShadow.setDirection(ShadowDirection.RIGHT);
-        RelativeLayout.LayoutParams rightRlp = new LayoutParams(verWidth, verHeight);
+        EdgeShadowView rightEdgeShadow = edgeShadowBuilder
+                .setShadowRadius(verWidth)
+                .setShadowSize(verHeight)
+                .setDirection(ShadowDirection.RIGHT)
+                .create();
+        RelativeLayout.LayoutParams rightRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
         rightRlp.addRule(ALIGN_PARENT_RIGHT);
         rightRlp.addRule(CENTER_VERTICAL);
-        addView(rightShadow, rightRlp);
+        addView(rightEdgeShadow, rightRlp);
 
         // 放在 contetnView 的 bottom 位置
-        EdgeShadowView bottomShadow = new EdgeShadowView(getContext());
-        bottomShadow.setDirection(ShadowDirection.BOTTOM);
-        RelativeLayout.LayoutParams bottomRlp = new LayoutParams(horWidth, horHeigth);
+        EdgeShadowView bottomEdgeShadow = edgeShadowBuilder
+                .setShadowRadius(horHeigth)
+                .setShadowSize(horWidth)
+                .setDirection(ShadowDirection.BOTTOM)
+                .create();
+        RelativeLayout.LayoutParams bottomRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
         bottomRlp.addRule(CENTER_HORIZONTAL);
         bottomRlp.addRule(ALIGN_PARENT_BOTTOM);
-        addView(bottomShadow, bottomRlp);
+        addView(bottomEdgeShadow, bottomRlp);
 
         // 放在 contentView 的 LeftTop 位置
-        CornerShadowView.Builder builder = new CornerShadowView.Builder();
-        CornerShadowView leftTopCornerShadow = builder.setContext(getContext())
+        CornerShadowView leftTopCornerShadow = cornerShadowbuilder.setContext(getContext())
                 .setDirection(ShadowDirection.LEFTTOP)
                 .setType(CornerShadowType.SECTOR)
                 .setShadowSize(shadowRadius / 2)
@@ -121,7 +131,7 @@ public class ShadowLayout extends RelativeLayout {
         addView(leftTopCornerShadow, leftTopRlp);
 
         // 放在 contentView 的 RightTop 位置
-        CornerShadowView rightTopCornerShadow = builder.setContext(getContext())
+        CornerShadowView rightTopCornerShadow = cornerShadowbuilder
                 .setDirection(ShadowDirection.RIGHTTOP)
                 .setType(CornerShadowType.SECTOR)
                 .setShadowSize(shadowRadius / 2)
@@ -134,7 +144,7 @@ public class ShadowLayout extends RelativeLayout {
         addView(rightTopCornerShadow, rightTopRlp);
 
         // 放在 contentView 的 RightBotom 位置
-        CornerShadowView RightBottomCornerShadow = builder.setContext(getContext())
+        CornerShadowView RightBottomCornerShadow = cornerShadowbuilder
                 .setDirection(ShadowDirection.RIGHTBOTTOM)
                 .setType(CornerShadowType.SECTOR)
                 .setShadowSize(shadowRadius / 2)
@@ -147,7 +157,7 @@ public class ShadowLayout extends RelativeLayout {
         addView(RightBottomCornerShadow, rightBottomRlp);
 
         // 放在 contentView 的 LeftBotom 位置
-        CornerShadowView leftBottomCornerShadow = builder.setContext(getContext())
+        CornerShadowView leftBottomCornerShadow = cornerShadowbuilder
                 .setDirection(ShadowDirection.LEFTBOTTOM)
                 .setType(CornerShadowType.SECTOR)
                 .setShadowSize(shadowRadius / 2)
@@ -158,5 +168,18 @@ public class ShadowLayout extends RelativeLayout {
         leftBottomRlp.addRule(ALIGN_PARENT_BOTTOM);
         leftBottomRlp.addRule(ALIGN_PARENT_LEFT);
         addView(leftBottomCornerShadow, leftBottomRlp);
+    }
+
+    private class OnMeasureListener implements ViewTreeObserver.OnGlobalLayoutListener {
+
+        @Override
+        public void onGlobalLayout() {
+            if (init) {
+                prepareLayout();
+                addShadow();
+                init = false;
+                getViewTreeObserver().removeGlobalOnLayoutListener(this);
+            }
+        }
     }
 }

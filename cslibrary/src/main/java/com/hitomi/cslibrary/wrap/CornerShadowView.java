@@ -1,4 +1,4 @@
-package com.hitomi.cslibrary;
+package com.hitomi.cslibrary.wrap;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,6 +9,8 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.view.View;
 
+import com.hitomi.cslibrary.ShadowDirection;
+
 /**
  * Created by hitomi on 2016/10/18.
  */
@@ -18,13 +20,16 @@ public class CornerShadowView extends View {
 
     private Path cornerShadowPath;
 
-    private CornerShadowAttr attr;
-
     private int degrees;
 
-    private CornerShadowView(Context context, CornerShadowAttr attr) {
+    private int[] shadowColors;
+
+    private float cornerRadius;
+
+    private float shadowSize;
+
+    private CornerShadowView(Context context) {
         super(context);
-        this.attr = attr;
         init();
     }
 
@@ -32,35 +37,11 @@ public class CornerShadowView extends View {
         shadowPaint = new Paint(Paint.DITHER_FLAG);
         shadowPaint.setStyle(Paint.Style.FILL);
         cornerShadowPath = new Path();
-
-        switch (attr.getType()) {
-            case CornerShadowType.SECTOR:
-                buildSectorShadow();
-                break;
-            case CornerShadowType.RINGSECTOR:
-                buildRingSectorShadow();
-                break;
-        }
-
-        switch (attr.getDirection()) {
-            case ShadowDirection.LEFTTOP:
-                degrees = 0;
-                break;
-            case ShadowDirection.RIGHTTOP:
-                degrees = 90;
-                break;
-            case ShadowDirection.RIGHTBOTTOM:
-                degrees = 180;
-                break;
-            case ShadowDirection.LEFTBOTTOM:
-                degrees = 270;
-                break;
-        }
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int measureSize = (int) (attr.getShadowSize() + attr.getCornerRadius());
+        int measureSize = (int) (shadowSize + cornerRadius);
         setMeasuredDimension(measureSize, measureSize);
     }
 
@@ -74,7 +55,7 @@ public class CornerShadowView extends View {
     }
 
     private void buildSectorShadow() {
-        float size = attr.getCornerRadius() + attr.getShadowSize();
+        float size = cornerRadius + shadowSize;
         RectF rectF = new RectF(-size, -size, size, size);
         cornerShadowPath.reset();
 
@@ -83,37 +64,79 @@ public class CornerShadowView extends View {
         cornerShadowPath.rLineTo(-size, 0);
         cornerShadowPath.arcTo(rectF, 180, 90f, false);
         cornerShadowPath.close();
-        float startRatio = attr.getCornerRadius() / (attr.getCornerRadius() + attr.getShadowSize());
-        shadowPaint.setShader(new RadialGradient(0, 0, attr.getCornerRadius() + attr.getShadowSize(),
-                attr.getShadowColors(),
+        float startRatio = cornerRadius / (cornerRadius + shadowSize);
+        shadowPaint.setShader(new RadialGradient(0, 0, cornerRadius + shadowSize,
+                shadowColors,
                 new float[]{0f, startRatio, 1f}
                 , Shader.TileMode.CLAMP));
     }
 
     private void buildRingSectorShadow() {
-        RectF innerBounds = new RectF(-attr.getCornerRadius(), -attr.getCornerRadius(),
-                attr.getCornerRadius(), attr.getCornerRadius());
+        RectF innerBounds = new RectF(-cornerRadius, -cornerRadius,
+                cornerRadius, cornerRadius);
         RectF outerBounds = new RectF(innerBounds);
-        outerBounds.inset(-attr.getShadowSize(), -attr.getShadowSize());
+        outerBounds.inset(-shadowSize, -shadowSize);
         cornerShadowPath.reset();
 
         cornerShadowPath.setFillType(Path.FillType.EVEN_ODD);
-        cornerShadowPath.moveTo(-attr.getCornerRadius(), 0);
-        cornerShadowPath.rLineTo(-attr.getShadowSize(), 0);
+        cornerShadowPath.moveTo(-cornerRadius, 0);
+        cornerShadowPath.rLineTo(-shadowSize, 0);
         // outer arc
         cornerShadowPath.arcTo(outerBounds, 180f, 90f, false);
         // inner arc
         cornerShadowPath.arcTo(innerBounds, 270f, -90f, false);
         cornerShadowPath.close();
-        float startRatio = attr.getCornerRadius() / (attr.getCornerRadius() + attr.getShadowSize());
-        shadowPaint.setShader(new RadialGradient(0, 0, attr.getCornerRadius() + attr.getShadowSize(),
-                attr.getShadowColors(),
+        float startRatio = cornerRadius / (cornerRadius + shadowSize);
+        shadowPaint.setShader(new RadialGradient(0, 0, cornerRadius + shadowSize,
+                shadowColors,
                 new float[]{0f, startRatio, 1f}
                 , Shader.TileMode.CLAMP));
     }
 
-    public void setShadowAttr(CornerShadowAttr attr) {
-        this.attr = attr;
+    public void setShadowColors(int[] shadowColors) {
+        this.shadowColors = shadowColors;
+    }
+
+    public void setCornerRadius(float cornerRadius) {
+        this.cornerRadius = cornerRadius;
+    }
+
+    public void setShadowSize(float shadowSize) {
+        this.shadowSize = shadowSize;
+    }
+
+    @ShadowDirection
+    public void setDirection(@ShadowDirection int direction) {
+        switch (direction) {
+            case ShadowDirection.LEFTTOP:
+                degrees = 0;
+                break;
+            case ShadowDirection.RIGHTTOP:
+                degrees = 90;
+                break;
+            case ShadowDirection.RIGHTBOTTOM:
+                degrees = 180;
+                break;
+            case ShadowDirection.LEFTBOTTOM:
+                degrees = 270;
+                break;
+            default:
+                degrees = 0;
+        }
+    }
+
+    @CornerShadowType
+    public void setType(@CornerShadowType int type) {
+        switch (type) {
+            case CornerShadowType.SECTOR:
+                buildSectorShadow();
+                break;
+            case CornerShadowType.RINGSECTOR:
+                buildRingSectorShadow();
+                break;
+            default:
+                buildSectorShadow();
+        }
     }
 
     public static class Builder {
@@ -164,21 +187,18 @@ public class CornerShadowView extends View {
         }
 
         public CornerShadowView create() {
-            if (shadowColors == null) {
+            if (shadowColors == null)
                 // 默认的颜色。由深到浅
-                shadowColors = new int[]{0x43000000, 0x17000000, 0x00000000};//分别为开始颜色，中间夜色，结束颜色
-            }
-
-            // 构建 CornerShadowAttr
-            CornerShadowAttr attr = new CornerShadowAttr();
-            attr.setShadowColors(shadowColors);
-            attr.setCornerRadius(cornerRadius);
-            attr.setShadowSize(shadowSize);
-            attr.setDirection(direction);
-            attr.setType(type);
+                //分别为开始颜色，中间夜色，结束颜色
+                shadowColors = new int[]{0x43000000, 0x17000000, 0x00000000};
 
             // 创建 CornerShadowView
-            CornerShadowView cornerShadowView = new CornerShadowView(context, attr);
+            CornerShadowView cornerShadowView = new CornerShadowView(context);
+            cornerShadowView.setShadowColors(shadowColors);
+            cornerShadowView.setCornerRadius(cornerRadius);
+            cornerShadowView.setShadowSize(shadowSize);
+            cornerShadowView.setDirection(direction);
+            cornerShadowView.setType(type);
             return cornerShadowView;
         }
     }
