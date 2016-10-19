@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
     tools:context="com.hitomi.crazyshadow.MainActivity">
 
     <FrameLayout
@@ -18,11 +17,6 @@
         android:layout_width="200dp"
         android:layout_height="200dp">
     </FrameLayout>
-
-    <com.hitomi.cslibrary.CornerShadowView
-        android:layout_marginTop="50dp"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
 
     <!--<FrameLayout-->
         <!--android:id="@+id/frame_layout"-->

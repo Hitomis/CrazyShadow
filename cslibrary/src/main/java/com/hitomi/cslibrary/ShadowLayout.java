@@ -16,7 +16,7 @@ public class ShadowLayout extends RelativeLayout {
 
     private View contentView;
 
-    private int shadowRadius = 25;
+    private float shadowRadius = 25;
 
     private boolean init;
 
@@ -57,8 +57,8 @@ public class ShadowLayout extends RelativeLayout {
         ViewGroup parent = (ViewGroup) contentView.getParent();
         parent.removeView(contentView);
 
-        int width = contentView.getWidth() - shadowRadius * 2;
-        int height = contentView.getHeight() - shadowRadius * 2;
+        int width = (int) (contentView.getWidth() - shadowRadius * 2);
+        int height = (int) (contentView.getHeight() - shadowRadius * 2);
         LayoutParams rlp = new LayoutParams(width, height);
         rlp.addRule(RelativeLayout.CENTER_IN_PARENT);
         shadowLayout.addView(contentView, rlp);
@@ -69,10 +69,15 @@ public class ShadowLayout extends RelativeLayout {
     }
 
     private void addShadow() {
+        int verHeight = (int) (contentView.getHeight()  - shadowRadius * 2);
+        int horWidth = (int) (contentView.getWidth() - shadowRadius * 2);
+        int verWidth, horHeigth;
+        verWidth = horHeigth = (int) shadowRadius;
+
         // 放在 contetnView 的 lfet 位置
         EdgeShadowView leftShadow = new EdgeShadowView(getContext());
         leftShadow.setDirection(ShadowDirection.LEFT);
-        RelativeLayout.LayoutParams leftRlp = new LayoutParams(shadowRadius, contentView.getHeight()  - shadowRadius * 2);
+        RelativeLayout.LayoutParams leftRlp = new LayoutParams(verWidth, verHeight);
         leftRlp.addRule(ALIGN_PARENT_LEFT);
         leftRlp.addRule(CENTER_VERTICAL);
         addView(leftShadow, leftRlp);
@@ -80,14 +85,15 @@ public class ShadowLayout extends RelativeLayout {
         // 放在 contetnView 的 top 位置
         EdgeShadowView topShadow = new EdgeShadowView(getContext());
         topShadow.setDirection(ShadowDirection.TOP);
-        RelativeLayout.LayoutParams topRlp = new LayoutParams(contentView.getWidth() - shadowRadius * 2, shadowRadius);
-        topRlp.addRule(ALIGN_PARENT_TOP|CENTER_HORIZONTAL);
+        RelativeLayout.LayoutParams topRlp = new LayoutParams(horWidth, horHeigth);
+        topRlp.addRule(ALIGN_PARENT_TOP);
+        topRlp.addRule(CENTER_HORIZONTAL);
         addView(topShadow, topRlp);
 
         // 放在 contetnView 的 Right 位置
         EdgeShadowView rightShadow = new EdgeShadowView(getContext());
         rightShadow.setDirection(ShadowDirection.RIGHT);
-        RelativeLayout.LayoutParams rightRlp = new LayoutParams(shadowRadius, contentView.getHeight()  - shadowRadius * 2);
+        RelativeLayout.LayoutParams rightRlp = new LayoutParams(verWidth, verHeight);
         rightRlp.addRule(ALIGN_PARENT_RIGHT);
         rightRlp.addRule(CENTER_VERTICAL);
         addView(rightShadow, rightRlp);
@@ -95,9 +101,62 @@ public class ShadowLayout extends RelativeLayout {
         // 放在 contetnView 的 bottom 位置
         EdgeShadowView bottomShadow = new EdgeShadowView(getContext());
         bottomShadow.setDirection(ShadowDirection.BOTTOM);
-        RelativeLayout.LayoutParams bottomRlp = new LayoutParams(contentView.getWidth() - shadowRadius * 2, shadowRadius);
+        RelativeLayout.LayoutParams bottomRlp = new LayoutParams(horWidth, horHeigth);
         bottomRlp.addRule(CENTER_HORIZONTAL);
         bottomRlp.addRule(ALIGN_PARENT_BOTTOM);
         addView(bottomShadow, bottomRlp);
+
+        // 放在 contentView 的 LeftTop 位置
+        CornerShadowView.Builder builder = new CornerShadowView.Builder();
+        CornerShadowView leftTopCornerShadow = builder.setContext(getContext())
+                .setDirection(ShadowDirection.LEFTTOP)
+                .setType(CornerShadowType.SECTOR)
+                .setShadowSize(shadowRadius / 2)
+                .setCornerRadius(shadowRadius / 2)
+                .create();
+        RelativeLayout.LayoutParams leftTopRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
+                , ViewGroup.LayoutParams.WRAP_CONTENT);
+        leftTopRlp.addRule(ALIGN_PARENT_TOP);
+        leftTopRlp.addRule(ALIGN_PARENT_LEFT);
+        addView(leftTopCornerShadow, leftTopRlp);
+
+        // 放在 contentView 的 RightTop 位置
+        CornerShadowView rightTopCornerShadow = builder.setContext(getContext())
+                .setDirection(ShadowDirection.RIGHTTOP)
+                .setType(CornerShadowType.SECTOR)
+                .setShadowSize(shadowRadius / 2)
+                .setCornerRadius(shadowRadius / 2)
+                .create();
+        RelativeLayout.LayoutParams rightTopRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
+                , ViewGroup.LayoutParams.WRAP_CONTENT);
+        rightTopRlp.addRule(ALIGN_PARENT_TOP);
+        rightTopRlp.addRule(ALIGN_PARENT_RIGHT);
+        addView(rightTopCornerShadow, rightTopRlp);
+
+        // 放在 contentView 的 RightBotom 位置
+        CornerShadowView RightBottomCornerShadow = builder.setContext(getContext())
+                .setDirection(ShadowDirection.RIGHTBOTTOM)
+                .setType(CornerShadowType.SECTOR)
+                .setShadowSize(shadowRadius / 2)
+                .setCornerRadius(shadowRadius / 2)
+                .create();
+        RelativeLayout.LayoutParams rightBottomRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
+                , ViewGroup.LayoutParams.WRAP_CONTENT);
+        rightBottomRlp.addRule(ALIGN_PARENT_BOTTOM);
+        rightBottomRlp.addRule(ALIGN_PARENT_RIGHT);
+        addView(RightBottomCornerShadow, rightBottomRlp);
+
+        // 放在 contentView 的 LeftBotom 位置
+        CornerShadowView leftBottomCornerShadow = builder.setContext(getContext())
+                .setDirection(ShadowDirection.LEFTBOTTOM)
+                .setType(CornerShadowType.SECTOR)
+                .setShadowSize(shadowRadius / 2)
+                .setCornerRadius(shadowRadius / 2)
+                .create();
+        RelativeLayout.LayoutParams leftBottomRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
+                , ViewGroup.LayoutParams.WRAP_CONTENT);
+        leftBottomRlp.addRule(ALIGN_PARENT_BOTTOM);
+        leftBottomRlp.addRule(ALIGN_PARENT_LEFT);
+        addView(leftBottomCornerShadow, leftBottomRlp);
     }
 }
