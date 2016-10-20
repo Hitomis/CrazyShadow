@@ -2,8 +2,9 @@ package com.hitomi.cslibrary.wrap;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
+import android.graphics.LinearGradient;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.view.View;
 
 import com.hitomi.cslibrary.CrazyShadowDirection;
@@ -13,7 +14,7 @@ import com.hitomi.cslibrary.CrazyShadowDirection;
  */
 public class EdgeShadowView extends View {
 
-    private Drawable mDrawable;
+    private Paint shadowPaint;
 
     private int[] shadowColors;
 
@@ -21,11 +22,14 @@ public class EdgeShadowView extends View {
 
     private float shadowSize;
 
+    private float cornerRadius;
+
     @CrazyShadowDirection
     private int direction;
 
     private EdgeShadowView(Context context) {
         super(context);
+        shadowPaint = new Paint();
     }
 
     @Override
@@ -43,8 +47,27 @@ public class EdgeShadowView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        mDrawable.setBounds(0, 0, getMeasuredWidth(), getMeasuredHeight());
-        mDrawable.draw(canvas);
+        canvas.save();
+        switch (direction) {
+            case CrazyShadowDirection.LEFT:
+                canvas.translate(cornerRadius + shadowRadius, shadowSize);
+                canvas.rotate(270f);
+                break;
+            case CrazyShadowDirection.TOP:
+                canvas.translate(0, cornerRadius + shadowRadius);
+                break;
+            case CrazyShadowDirection.RIGHT:
+                canvas.translate(-cornerRadius, 0);
+                canvas.rotate(90);
+                break;
+            case CrazyShadowDirection.BOTTOM:
+                canvas.translate(shadowSize, -cornerRadius);
+                canvas.rotate(180);
+                break;
+            default:
+        }
+        canvas.drawRect(0, -cornerRadius -shadowRadius, shadowSize, -cornerRadius, shadowPaint);
+        canvas.restore();
     }
 
     public void setShadowColors(int[] shadowColors) {
@@ -55,6 +78,10 @@ public class EdgeShadowView extends View {
         this.shadowRadius = shadowRadius;
     }
 
+    public void setCornerRadius(float cornerRadius) {
+        this.cornerRadius = cornerRadius;
+    }
+
     public void setShadowSize(float shadowSize) {
         this.shadowSize = shadowSize;
     }
@@ -62,22 +89,9 @@ public class EdgeShadowView extends View {
     @CrazyShadowDirection
     public void setDirection(@CrazyShadowDirection int direction) {
         this.direction = direction;
-        switch (direction) {
-            case CrazyShadowDirection.LEFT:
-                mDrawable = new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, shadowColors);
-                break;
-            case CrazyShadowDirection.TOP:
-                mDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, shadowColors);
-                break;
-            case CrazyShadowDirection.RIGHT:
-                mDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, shadowColors);
-                break;
-            case CrazyShadowDirection.BOTTOM:
-                mDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, shadowColors);
-                break;
-            default:
-                mDrawable = new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, shadowColors);
-        }
+        shadowPaint.setShader(new LinearGradient(0, cornerRadius, 0, -cornerRadius - shadowRadius,
+                shadowColors,
+                new float[]{0f, .5f, 1f}, Shader.TileMode.CLAMP));
     }
 
     public static class Builder {
@@ -89,6 +103,8 @@ public class EdgeShadowView extends View {
         private float shadowRadius;
 
         private float shadowSize;
+
+        private float cornerRadius;
 
         @CrazyShadowDirection
         private int direction;
@@ -113,6 +129,10 @@ public class EdgeShadowView extends View {
             return this;
         }
 
+        public Builder setCornerRadius(float cornerRadius) {
+            this.cornerRadius = cornerRadius;
+            return this;
+        }
 
         public Builder setDirection(@CrazyShadowDirection int direction) {
             this.direction = direction;
@@ -125,6 +145,7 @@ public class EdgeShadowView extends View {
             edgeShadowView.setShadowColors(shadowColors);
             edgeShadowView.setShadowRadius(shadowRadius);
             edgeShadowView.setShadowSize(shadowSize);
+            edgeShadowView.setCornerRadius(cornerRadius);
             edgeShadowView.setDirection(direction);
             return edgeShadowView;
         }

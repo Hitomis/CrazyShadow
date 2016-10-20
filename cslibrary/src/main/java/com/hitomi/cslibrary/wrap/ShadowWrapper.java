@@ -155,9 +155,14 @@ public class ShadowWrapper extends RelativeLayout implements ShadowHandler {
         float horWidth = contentView.getWidth() - attr.getShadowRadius() * 2;
         float verWidth, horHeigth;
         verWidth = horHeigth = attr.getShadowRadius();
+        if (attr.getCorner() != 0) {
+            verHeight -= 2 * attr.getCorner();
+            horWidth -= 2 * attr.getCorner();
+        }
         EdgeShadowView.Builder edgeShadowBuilder = new EdgeShadowView.Builder()
                 .setContext(getContext())
-                .setShadowColors(attr.getColors());
+                .setShadowColors(attr.getColors())
+                .setCornerRadius(attr.getCorner());
 
         if (containLeft())
         decorateLeft(verHeight, verWidth, edgeShadowBuilder);

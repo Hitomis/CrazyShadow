@@ -48,7 +48,7 @@ public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
 
     public RoundRectShadowDrawable(int background, float radius, float shadowSize, float maxShadowSize) {
         mShadowStartColor = 0x43000000;
-        mShadowCentertColor = 0x43000000;
+        mShadowCentertColor = 0x17000000;
         mShadowEndColor = 0x00000000;
         mInsetShadow = 10;
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
@@ -175,7 +175,7 @@ public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
         int saved = canvas.save();
         canvas.translate(mCardBounds.left + inset, mCardBounds.top + inset);
         canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
-        if (drawHorizontalEdges) {
+        if (drawHorizontalEdges) { // top
             canvas.drawRect(0, edgeShadowTop,
                     mCardBounds.width() - 2 * inset, -mCornerRadius,
                     mEdgeShadowPaint);
@@ -186,7 +186,7 @@ public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
         canvas.translate(mCardBounds.right - inset, mCardBounds.bottom - inset);
         canvas.rotate(180f);
         canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
-        if (drawHorizontalEdges) {
+        if (drawHorizontalEdges) { // bottom
             canvas.drawRect(0, edgeShadowTop,
                     mCardBounds.width() - 2 * inset, -mCornerRadius,
                     mEdgeShadowPaint);
@@ -197,7 +197,7 @@ public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
         canvas.translate(mCardBounds.left + inset, mCardBounds.bottom - inset);
         canvas.rotate(270f);
         canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
-        if (drawVerticalEdges) {
+        if (drawVerticalEdges) {// left
             canvas.drawRect(0, edgeShadowTop,
                     mCardBounds.height() - 2 * inset, -mCornerRadius, mEdgeShadowPaint);
         }
@@ -207,7 +207,7 @@ public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
         canvas.translate(mCardBounds.right - inset, mCardBounds.top + inset);
         canvas.rotate(90f);
         canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
-        if (drawVerticalEdges) {
+        if (drawVerticalEdges) {// right
             canvas.drawRect(0, edgeShadowTop,
                     mCardBounds.height() - 2 * inset, -mCornerRadius, mEdgeShadowPaint);
         }
