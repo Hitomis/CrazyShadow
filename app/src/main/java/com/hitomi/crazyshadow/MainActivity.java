@@ -23,11 +23,12 @@ public class MainActivity extends AppCompatActivity {
         new CrazyShadow.Builder()
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.ALL)
-                .setShadowRadius(20)
+                .setCorner(20)
+                .setShadowRadius(10)
                 .setImpl(CrazyShadowAttr.IMPL_WRAPPER)
                 .action(frameLayout);
 
 
-        findViewById(R.id.frame).setBackgroundDrawable(new RoundRectShadowDrawable(Color.TRANSPARENT, 20, 20, 20));
+        findViewById(R.id.frame).setBackgroundDrawable(new RoundRectShadowDrawable(Color.TRANSPARENT, 6, 20, 20));
     }
 }

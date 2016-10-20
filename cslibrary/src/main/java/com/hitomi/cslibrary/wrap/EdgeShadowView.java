@@ -49,10 +49,6 @@ public class EdgeShadowView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.save();
         switch (direction) {
-            case CrazyShadowDirection.LEFT:
-                canvas.translate(cornerRadius + shadowRadius, shadowSize);
-                canvas.rotate(270f);
-                break;
             case CrazyShadowDirection.TOP:
                 canvas.translate(0, cornerRadius + shadowRadius);
                 break;
@@ -63,6 +59,10 @@ public class EdgeShadowView extends View {
             case CrazyShadowDirection.BOTTOM:
                 canvas.translate(shadowSize, -cornerRadius);
                 canvas.rotate(180);
+                break;
+            case CrazyShadowDirection.LEFT:
+                canvas.translate(cornerRadius + shadowRadius, shadowSize);
+                canvas.rotate(270f);
                 break;
             default:
         }
@@ -89,7 +89,7 @@ public class EdgeShadowView extends View {
     @CrazyShadowDirection
     public void setDirection(@CrazyShadowDirection int direction) {
         this.direction = direction;
-        shadowPaint.setShader(new LinearGradient(0, cornerRadius, 0, -cornerRadius - shadowRadius,
+        shadowPaint.setShader(new LinearGradient(0, -cornerRadius + shadowRadius, 0, -cornerRadius - shadowRadius,
                 shadowColors,
                 new float[]{0f, .5f, 1f}, Shader.TileMode.CLAMP));
     }
