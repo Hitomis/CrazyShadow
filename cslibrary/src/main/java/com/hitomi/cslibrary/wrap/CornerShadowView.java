@@ -9,7 +9,7 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.view.View;
 
-import com.hitomi.cslibrary.ShadowDirection;
+import com.hitomi.cslibrary.CrazyShadowDirection;
 
 /**
  * Created by hitomi on 2016/10/18.
@@ -105,19 +105,19 @@ public class CornerShadowView extends View {
         this.shadowSize = shadowSize;
     }
 
-    @ShadowDirection
-    public void setDirection(@ShadowDirection int direction) {
+    @CrazyShadowDirection
+    public void setDirection(@CrazyShadowDirection int direction) {
         switch (direction) {
-            case ShadowDirection.LEFTTOP:
+            case CrazyShadowDirection.LEFTTOP:
                 degrees = 0;
                 break;
-            case ShadowDirection.RIGHTTOP:
+            case CrazyShadowDirection.RIGHTTOP:
                 degrees = 90;
                 break;
-            case ShadowDirection.RIGHTBOTTOM:
+            case CrazyShadowDirection.RIGHTBOTTOM:
                 degrees = 180;
                 break;
-            case ShadowDirection.LEFTBOTTOM:
+            case CrazyShadowDirection.LEFTBOTTOM:
                 degrees = 270;
                 break;
             default:
@@ -149,7 +149,7 @@ public class CornerShadowView extends View {
 
         private float shadowSize;
 
-        @ShadowDirection
+        @CrazyShadowDirection
         private int direction;
 
         @CornerShadowType
@@ -176,7 +176,7 @@ public class CornerShadowView extends View {
         }
 
 
-        public Builder setDirection(@ShadowDirection int direction) {
+        public Builder setDirection(@CrazyShadowDirection int direction) {
             this.direction = direction;
             return this;
         }
@@ -187,11 +187,6 @@ public class CornerShadowView extends View {
         }
 
         public CornerShadowView create() {
-            if (shadowColors == null)
-                // 默认的颜色。由深到浅
-                //分别为开始颜色，中间夜色，结束颜色
-                shadowColors = new int[]{0x43000000, 0x17000000, 0x00000000};
-
             // 创建 CornerShadowView
             CornerShadowView cornerShadowView = new CornerShadowView(context);
             cornerShadowView.setShadowColors(shadowColors);

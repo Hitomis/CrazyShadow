@@ -11,11 +11,15 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
+import android.view.View;
+
+import com.hitomi.cslibrary.CrazyShadowAttr;
+import com.hitomi.cslibrary.ShadowHandler;
 
 /**
  * Created by hitomi on 2016/10/17.
  */
-public class RoundRectDrawableWithShadow extends Drawable {
+public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
     // used to calculate content padding
     final static double COS_45 = Math.cos(Math.toRadians(45));
 
@@ -42,7 +46,7 @@ public class RoundRectDrawableWithShadow extends Drawable {
     private boolean mDirty = true;
     private boolean mAddPaddingForCorners = true;
 
-    public RoundRectDrawableWithShadow(int background, float radius, float shadowSize, float maxShadowSize) {
+    public RoundRectShadowDrawable(int background, float radius, float shadowSize, float maxShadowSize) {
         mShadowStartColor = 0x43000000;
         mShadowCentertColor = 0x43000000;
         mShadowEndColor = 0x00000000;
@@ -279,10 +283,6 @@ public class RoundRectDrawableWithShadow extends Drawable {
         return mRawShadowSize;
     }
 
-    void setShadowSize(float size) {
-        setShadowSize(size, mRawMaxShadowSize);
-    }
-
     float getMaxShadowSize() {
         return mRawMaxShadowSize;
     }
@@ -301,5 +301,10 @@ public class RoundRectDrawableWithShadow extends Drawable {
         final float content = 2 * Math.max(mRawMaxShadowSize, mCornerRadius + mInsetShadow
                 + mRawMaxShadowSize * SHADOW_MULTIPLIER / 2);
         return content + (mRawMaxShadowSize * SHADOW_MULTIPLIER + mInsetShadow) * 2;
+    }
+
+    @Override
+    public void makeShadow(View view, CrazyShadowAttr attr) {
+
     }
 }

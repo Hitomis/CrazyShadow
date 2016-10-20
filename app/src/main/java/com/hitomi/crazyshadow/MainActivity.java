@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
-import com.hitomi.cslibrary.drawable.RoundRectDrawableWithShadow;
-import com.hitomi.cslibrary.ShadowLayout;
+import com.hitomi.cslibrary.CrazyShadow;
+import com.hitomi.cslibrary.CrazyShadowAttr;
+import com.hitomi.cslibrary.CrazyShadowDirection;
+import com.hitomi.cslibrary.drawable.RoundRectShadowDrawable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,9 +20,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         frameLayout = (FrameLayout) findViewById(R.id.frame_layout);
 
-        ShadowLayout shadowLayout = new ShadowLayout(this);
-        shadowLayout.attachToView(frameLayout);
+        new CrazyShadow.Builder()
+                .setContext(this)
+                .setDirection(CrazyShadowDirection.ALL)
+                .setShadowRadius(10)
+                .setImpl(CrazyShadowAttr.IMPL_WRAPPER)
+                .action(frameLayout);
 
-        findViewById(R.id.frame).setBackgroundDrawable(new RoundRectDrawableWithShadow(Color.TRANSPARENT, 6, 8, 8));
+
+        findViewById(R.id.frame).setBackgroundDrawable(new RoundRectShadowDrawable(Color.TRANSPARENT, 6, 8, 8));
     }
 }

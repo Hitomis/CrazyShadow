@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 
-import com.hitomi.cslibrary.ShadowDirection;
+import com.hitomi.cslibrary.CrazyShadowDirection;
 
 /**
  * Created by hitomi on 2016/10/17.
@@ -21,7 +21,7 @@ public class EdgeShadowView extends View {
 
     private float shadowSize;
 
-    @ShadowDirection
+    @CrazyShadowDirection
     private int direction;
 
     private EdgeShadowView(Context context) {
@@ -31,7 +31,7 @@ public class EdgeShadowView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int measureWidth, measureHeight;
-        if (direction == ShadowDirection.LEFT || direction == ShadowDirection.RIGHT) {
+        if (direction == CrazyShadowDirection.LEFT || direction == CrazyShadowDirection.RIGHT) {
             measureWidth = Math.round(shadowRadius);
             measureHeight = Math.round(shadowSize);
         } else {
@@ -59,24 +59,24 @@ public class EdgeShadowView extends View {
         this.shadowSize = shadowSize;
     }
 
-    @ShadowDirection
-    public void setDirection(@ShadowDirection int direction) {
+    @CrazyShadowDirection
+    public void setDirection(@CrazyShadowDirection int direction) {
         this.direction = direction;
         switch (direction) {
-            case ShadowDirection.LEFT:
-                mDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, shadowColors);
-                break;
-            case ShadowDirection.TOP:
-                mDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, shadowColors);
-                break;
-            case ShadowDirection.RIGHT:
+            case CrazyShadowDirection.LEFT:
                 mDrawable = new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, shadowColors);
                 break;
-            case ShadowDirection.BOTTOM:
+            case CrazyShadowDirection.TOP:
                 mDrawable = new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, shadowColors);
                 break;
-            default:
+            case CrazyShadowDirection.RIGHT:
                 mDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, shadowColors);
+                break;
+            case CrazyShadowDirection.BOTTOM:
+                mDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, shadowColors);
+                break;
+            default:
+                mDrawable = new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, shadowColors);
         }
     }
 
@@ -90,7 +90,7 @@ public class EdgeShadowView extends View {
 
         private float shadowSize;
 
-        @ShadowDirection
+        @CrazyShadowDirection
         private int direction;
 
         public Builder setContext(Context context) {
@@ -114,17 +114,12 @@ public class EdgeShadowView extends View {
         }
 
 
-        public Builder setDirection(@ShadowDirection int direction) {
+        public Builder setDirection(@CrazyShadowDirection int direction) {
             this.direction = direction;
             return this;
         }
 
         public EdgeShadowView create() {
-            if (shadowColors == null)
-                // 默认的颜色。由浅到深
-                //分别为开始颜色，中间夜色，结束颜色
-                shadowColors = new int[]{0x00000000, 0x17000000, 0x43000000};
-
             // 创建 EdgeShadowView
             EdgeShadowView edgeShadowView = new EdgeShadowView(context);
             edgeShadowView.setShadowColors(shadowColors);
