@@ -2,7 +2,6 @@ package com.hitomi.cslibrary.floatable;
 
 import android.view.View;
 
-import com.hitomi.cslibrary.CrazyShadowAttr;
 import com.hitomi.cslibrary.ShadowHandler;
 
 /**
@@ -11,7 +10,7 @@ import com.hitomi.cslibrary.ShadowHandler;
 public class ShadowFloatable implements ShadowHandler {
 
     @Override
-    public void makeShadow(View view, CrazyShadowAttr attr) {
+    public void makeShadow(View view) {
 
     }
 

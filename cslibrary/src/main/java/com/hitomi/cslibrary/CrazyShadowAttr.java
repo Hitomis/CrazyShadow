@@ -7,15 +7,11 @@ import android.support.v4.graphics.ColorUtils;
  */
 public class CrazyShadowAttr {
 
-    public static final String IMPL_WRAPPER = "wrapper";
-
-    public static final String IMPL_FLOAT = "floatable";
-
-    public static final String IMPL_DRAWABLE = "drawable";
-
     private String impl;
 
-    private int baseColor;
+    private int baseShadowColor;
+
+    private int background;
 
     private int[] colors;
 
@@ -34,16 +30,22 @@ public class CrazyShadowAttr {
         this.impl = impl;
     }
 
-    public int getBaseColor() {
-        return baseColor;
+    public void setBaseShadowColor(int baseShadowColor) {
+        this.baseShadowColor = baseShadowColor;
+        if (colors == null) {
+            colors = new int[3];
+            colors[0] = ColorUtils.setAlphaComponent(baseShadowColor, 255);
+            colors[1] = ColorUtils.setAlphaComponent(baseShadowColor, 128);
+            colors[2] = ColorUtils.setAlphaComponent(baseShadowColor, 0);
+        }
     }
 
-    public void setBaseColor(int baseColor) {
-        this.baseColor = baseColor;
-        colors = new int[3];
-        colors[0] = ColorUtils.setAlphaComponent(baseColor, 0);
-        colors[1] = ColorUtils.setAlphaComponent(baseColor, 128);
-        colors[2] = ColorUtils.setAlphaComponent(baseColor, 255);
+    public int getBackground() {
+        return background;
+    }
+
+    public void setBackground(int background) {
+        this.background = background;
     }
 
     public int[] getColors() {
@@ -51,7 +53,8 @@ public class CrazyShadowAttr {
     }
 
     public void setColors(int[] colors) {
-        this.colors = colors;
+        if (colors != null)
+            this.colors = colors;
     }
 
     public float getCorner() {

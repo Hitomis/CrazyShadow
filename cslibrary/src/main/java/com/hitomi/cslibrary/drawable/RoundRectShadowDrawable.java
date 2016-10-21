@@ -11,15 +11,11 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
-import android.view.View;
-
-import com.hitomi.cslibrary.CrazyShadowAttr;
-import com.hitomi.cslibrary.ShadowHandler;
 
 /**
  * Created by hitomi on 2016/10/17.
  */
-public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
+public class RoundRectShadowDrawable extends Drawable {
     // used to calculate content padding
     final static double COS_45 = Math.cos(Math.toRadians(45));
 
@@ -27,9 +23,6 @@ public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
 
     final int mInsetShadow; // extra shadow to avoid gaps between card and shadow
     final RectF mCardBounds;
-    private final int mShadowStartColor;
-    private final int mShadowCentertColor;
-    private final int mShadowEndColor;
     Paint mPaint;
     Paint mCornerShadowPaint;
     Paint mEdgeShadowPaint;
@@ -43,14 +36,13 @@ public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
     float mShadowSize;
     // actual value set by developer
     float mRawShadowSize;
+    private int[] shadowColors;
     private boolean mDirty = true;
     private boolean mAddPaddingForCorners = true;
 
-    public RoundRectShadowDrawable(int background, float radius, float shadowSize, float maxShadowSize) {
-        mShadowStartColor = 0x43000000;
-        mShadowCentertColor = 0x17000000;
-        mShadowEndColor = 0x00000000;
+    public RoundRectShadowDrawable(int background, int[] shadowColors, float radius, float shadowSize, float maxShadowSize) {
         mInsetShadow = 10;
+        this.shadowColors = shadowColors;
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
         mPaint.setColor(background);
         mCornerShadowPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
@@ -175,7 +167,7 @@ public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
         int saved = canvas.save();
         canvas.translate(mCardBounds.left + inset, mCardBounds.top + inset);
         canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
-        if (drawHorizontalEdges) { // top
+        if (drawHorizontalEdges) {
             canvas.drawRect(0, edgeShadowTop,
                     mCardBounds.width() - 2 * inset, -mCornerRadius,
                     mEdgeShadowPaint);
@@ -186,7 +178,7 @@ public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
         canvas.translate(mCardBounds.right - inset, mCardBounds.bottom - inset);
         canvas.rotate(180f);
         canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
-        if (drawHorizontalEdges) { // bottom
+        if (drawHorizontalEdges) {
             canvas.drawRect(0, edgeShadowTop,
                     mCardBounds.width() - 2 * inset, -mCornerRadius,
                     mEdgeShadowPaint);
@@ -197,7 +189,7 @@ public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
         canvas.translate(mCardBounds.left + inset, mCardBounds.bottom - inset);
         canvas.rotate(270f);
         canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
-        if (drawVerticalEdges) {// left
+        if (drawVerticalEdges) {
             canvas.drawRect(0, edgeShadowTop,
                     mCardBounds.height() - 2 * inset, -mCornerRadius, mEdgeShadowPaint);
         }
@@ -207,7 +199,7 @@ public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
         canvas.translate(mCardBounds.right - inset, mCardBounds.top + inset);
         canvas.rotate(90f);
         canvas.drawPath(mCornerShadowPath, mCornerShadowPaint);
-        if (drawVerticalEdges) {// right
+        if (drawVerticalEdges) {
             canvas.drawRect(0, edgeShadowTop,
                     mCardBounds.height() - 2 * inset, -mCornerRadius, mEdgeShadowPaint);
         }
@@ -234,7 +226,7 @@ public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
         mCornerShadowPath.close();
         float startRatio = mCornerRadius / (mCornerRadius + mShadowSize);
         mCornerShadowPaint.setShader(new RadialGradient(0, 0, mCornerRadius + mShadowSize,
-                new int[]{mShadowStartColor, mShadowCentertColor, mShadowEndColor},
+                shadowColors,
                 new float[]{0f, startRatio, 1f}
                 , Shader.TileMode.CLAMP));
 
@@ -243,7 +235,7 @@ public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
         // When drawing bottom edge shadow, we use that extra space.
         mEdgeShadowPaint.setShader(new LinearGradient(0, -mCornerRadius + mShadowSize, 0,
                 -mCornerRadius - mShadowSize,
-                new int[]{mShadowStartColor, mShadowCentertColor, mShadowEndColor},
+                shadowColors,
                 new float[]{0f, .5f, 1f}, Shader.TileMode.CLAMP));
         mEdgeShadowPaint.setAntiAlias(false);
     }
@@ -283,6 +275,10 @@ public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
         return mRawShadowSize;
     }
 
+    void setShadowSize(float size) {
+        setShadowSize(size, mRawMaxShadowSize);
+    }
+
     float getMaxShadowSize() {
         return mRawMaxShadowSize;
     }
@@ -301,10 +297,5 @@ public class RoundRectShadowDrawable extends Drawable implements ShadowHandler{
         final float content = 2 * Math.max(mRawMaxShadowSize, mCornerRadius + mInsetShadow
                 + mRawMaxShadowSize * SHADOW_MULTIPLIER / 2);
         return content + (mRawMaxShadowSize * SHADOW_MULTIPLIER + mInsetShadow) * 2;
-    }
-
-    @Override
-    public void makeShadow(View view, CrazyShadowAttr attr) {
-
     }
 }

@@ -7,6 +7,6 @@ import android.view.View;
  */
 public interface ShadowHandler {
 
-    void makeShadow(View view, CrazyShadowAttr attr);
+    void makeShadow(View view);
 
 }

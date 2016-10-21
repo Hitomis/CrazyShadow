@@ -3,6 +3,7 @@ package com.hitomi.cslibrary;
 import android.content.Context;
 import android.view.View;
 
+import com.hitomi.cslibrary.drawable.ShadowDrawer;
 import com.hitomi.cslibrary.floatable.ShadowFloatable;
 import com.hitomi.cslibrary.wrap.ShadowWrapper;
 
@@ -10,6 +11,12 @@ import com.hitomi.cslibrary.wrap.ShadowWrapper;
  * Created by hitomi on 2016/10/19.
  */
 public class CrazyShadow {
+
+    public static final String IMPL_DRAWABLE = "drawable";
+
+    public static final String IMPL_WRAPPER = "wrap";
+
+    public static final String IMPL_FLOAT = "floatable";
 
     private Context context;
 
@@ -22,22 +29,22 @@ public class CrazyShadow {
     }
 
     private void createShadowHandler() {
-        if (attr.getImpl().equals(CrazyShadowAttr.IMPL_DRAWABLE)) {
-//            shadowHandler = new RoundRectShadowDrawable();
-        } else if (attr.getImpl().equals(CrazyShadowAttr.IMPL_WRAPPER)) {
-            shadowHandler = new ShadowWrapper(context);
+        if (attr.getImpl().equals(IMPL_DRAWABLE)) {
+            shadowHandler = new ShadowDrawer(attr);
+        } else if (attr.getImpl().equals(IMPL_WRAPPER)) {
+            shadowHandler = new ShadowWrapper(context, attr);
         } else {
             shadowHandler = new ShadowFloatable();
         }
     }
 
-    public void make(View view) {
-        shadowHandler.makeShadow(view, attr);
-    }
-
-    public void setAttr(CrazyShadowAttr attr) {
+    private void setAttr(CrazyShadowAttr attr) {
         this.attr = attr;
         createShadowHandler();
+    }
+
+    public void make(View view) {
+        shadowHandler.makeShadow(view);
     }
 
     public static class Builder {
@@ -46,7 +53,9 @@ public class CrazyShadow {
 
         private String impl;
 
-        private int baseColor;
+        private int baseShadowColor;
+
+        private int background;
 
         private int[] colors;
 
@@ -67,8 +76,13 @@ public class CrazyShadow {
             return this;
         }
 
-        public Builder setBaseColor(int baseColor) {
-            this.baseColor = baseColor;
+        public Builder setBaseShadowColor(int baseColor) {
+            this.baseShadowColor = baseColor;
+            return this;
+        }
+
+        public Builder setBackground(int background) {
+            this.background = background;
             return this;
         }
 
@@ -93,13 +107,14 @@ public class CrazyShadow {
         }
 
         private CrazyShadow create() {
-            if (colors == null)
+            if (colors == null && baseShadowColor == 0)
                 // 默认的颜色。由深到浅
                 //分别为开始颜色，中间夜色，结束颜色
                 colors = new int[]{0x63000000, 0x32000000, 0x00000000};
             CrazyShadowAttr attr = new CrazyShadowAttr();
             attr.setImpl(impl);
-            attr.setBaseColor(baseColor);
+            attr.setBaseShadowColor(baseShadowColor);
+            attr.setBackground(background);
             attr.setColors(colors);
             attr.setCorner(corner);
             attr.setShadowRadius(shadowRadius);

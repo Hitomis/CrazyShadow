@@ -2,7 +2,6 @@ package com.hitomi.cslibrary.wrap;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -26,16 +25,9 @@ public class ShadowWrapper extends RelativeLayout implements ShadowHandler {
 
     private CrazyShadowAttr attr;
 
-    public ShadowWrapper(Context context) {
-        this(context, null);
-    }
-
-    public ShadowWrapper(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
-
-    public ShadowWrapper(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+    public ShadowWrapper(Context context, CrazyShadowAttr attr) {
+        super(context);
+        this.attr = attr;
         measureListener = new OnMeasureListener();
     }
 
@@ -335,8 +327,7 @@ public class ShadowWrapper extends RelativeLayout implements ShadowHandler {
     }
 
     @Override
-    public void makeShadow(View view, CrazyShadowAttr attr) {
-        this.attr = attr;
+    public void makeShadow(View view) {
         contentView = view;
         init = true;
         contentView.getViewTreeObserver().addOnGlobalLayoutListener(measureListener);
