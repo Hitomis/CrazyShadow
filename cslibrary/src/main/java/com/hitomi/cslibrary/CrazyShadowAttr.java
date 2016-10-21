@@ -7,18 +7,46 @@ import android.support.v4.graphics.ColorUtils;
  */
 public class CrazyShadowAttr {
 
+    /**
+     * 以何种方式添加阴影:<br/>
+     * {@link com.hitomi.cslibrary.CrazyShadow#IMPL_DRAWABLE} <br/>
+     * {@link com.hitomi.cslibrary.CrazyShadow#IMPL_WRAPPER} <br/>
+     * {@link com.hitomi.cslibrary.CrazyShadow#IMPL_FLOAT} <br/>
+     */
     private String impl;
 
+    /**
+     * 阴影的基本颜色，即最深的颜色, {@link #setBaseShadowColor(int)} 方法会自动计算出
+     * 绘制阴影时需要的 {@link #colors}
+     */
     private int baseShadowColor;
 
+    /**
+     * 仅仅对 {@link com.hitomi.cslibrary.CrazyShadow#IMPL_DRAWABLE} 形式的方设置阴影时需要的属性
+     */
     private int background;
 
+    /**
+     * 绘制阴影时需要的一个颜色由深到浅且长度为3的数组
+     */
     private int[] colors;
 
+    /**
+     * 对 {@link com.hitomi.cslibrary.CrazyShadow#IMPL_DRAWABLE} 形式表示为背景的圆角角度.<br/>
+     * 对 {@link com.hitomi.cslibrary.CrazyShadow#IMPL_WRAPPER} 与
+     * {@link com.hitomi.cslibrary.CrazyShadow#IMPL_FLOAT}
+     * 表示为阴影顶点的内侧弧度。以适配被设置的 View 是圆角的情况
+     */
     private float corner;
 
+    /**
+     * 阴影半径
+     */
     private float shadowRadius;
 
+    /**
+     * 设置阴影的方向，具体查看 {@link com.hitomi.cslibrary.CrazyShadowAttr}
+     */
     @CrazyShadowDirection
     private int direction;
 

@@ -7,7 +7,7 @@ import com.hitomi.cslibrary.ShadowHandler;
 /**
  * Created by hitomi on 2016/10/19.
  */
-public class ShadowFloatable implements ShadowHandler {
+public class ShadowFloater implements ShadowHandler {
 
     @Override
     public void makeShadow(View view) {
