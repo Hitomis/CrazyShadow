@@ -29,7 +29,6 @@ public class EdgeShadowView extends View {
 
     private EdgeShadowView(Context context) {
         super(context);
-        shadowPaint = new Paint();
     }
 
     @Override
@@ -70,6 +69,14 @@ public class EdgeShadowView extends View {
         canvas.restore();
     }
 
+    private void buildEdgeShadowTool() {
+        shadowPaint = new Paint();
+        shadowPaint.setStyle(Paint.Style.FILL);
+        shadowPaint.setShader(new LinearGradient(0, -cornerRadius + shadowRadius, 0, -cornerRadius - shadowRadius,
+                shadowColors,
+                new float[]{0f, .5f, 1f}, Shader.TileMode.CLAMP));
+    }
+
     public void setShadowColors(int[] shadowColors) {
         this.shadowColors = shadowColors;
     }
@@ -89,9 +96,6 @@ public class EdgeShadowView extends View {
     @CrazyShadowDirection
     public void setDirection(@CrazyShadowDirection int direction) {
         this.direction = direction;
-        shadowPaint.setShader(new LinearGradient(0, -cornerRadius + shadowRadius, 0, -cornerRadius - shadowRadius,
-                shadowColors,
-                new float[]{0f, .5f, 1f}, Shader.TileMode.CLAMP));
     }
 
     public static class Builder {
@@ -147,6 +151,7 @@ public class EdgeShadowView extends View {
             edgeShadowView.setShadowSize(shadowSize);
             edgeShadowView.setCornerRadius(cornerRadius);
             edgeShadowView.setDirection(direction);
+            edgeShadowView.buildEdgeShadowTool();
             return edgeShadowView;
         }
     }

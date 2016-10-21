@@ -12,7 +12,7 @@ import com.hitomi.cslibrary.drawable.RoundRectShadowDrawable;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FrameLayout frameLayout, frameLayouts;
+    private FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +23,7 @@ public class MainActivity extends AppCompatActivity {
         new CrazyShadow.Builder()
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.ALL)
-                .setCorner(6)
-                .setShadowRadius(30)
+                .setShadowRadius(40)
                 .setImpl(CrazyShadowAttr.IMPL_WRAPPER)
                 .action(frameLayout);
 

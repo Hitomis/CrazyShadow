@@ -54,23 +54,6 @@ public class CornerShadowView extends View {
         canvas.restore();
     }
 
-    private void buildSectorShadow() {
-        float size = cornerRadius + shadowSize;
-        RectF rectF = new RectF(-size, -size, size, size);
-        cornerShadowPath.reset();
-
-        cornerShadowPath.setFillType(Path.FillType.EVEN_ODD);
-        cornerShadowPath.moveTo(0, 0);
-        cornerShadowPath.rLineTo(-size, 0);
-        cornerShadowPath.arcTo(rectF, 180, 90f, false);
-        cornerShadowPath.close();
-        float startRatio = cornerRadius / (cornerRadius + shadowSize);
-        shadowPaint.setShader(new RadialGradient(0, 0, cornerRadius + shadowSize,
-                shadowColors,
-                new float[]{0f, startRatio, 1f}
-                , Shader.TileMode.CLAMP));
-    }
-
     private void buildRingSectorShadow() {
         RectF innerBounds = new RectF(-cornerRadius, -cornerRadius,
                 cornerRadius, cornerRadius);
@@ -108,34 +91,20 @@ public class CornerShadowView extends View {
     @CrazyShadowDirection
     public void setDirection(@CrazyShadowDirection int direction) {
         switch (direction) {
-            case CrazyShadowDirection.LEFTTOP:
+            case CrazyShadowDirection.LEFT_TOP:
                 degrees = 0;
                 break;
-            case CrazyShadowDirection.RIGHTTOP:
+            case CrazyShadowDirection.TOP_RIGHT:
                 degrees = 90;
                 break;
-            case CrazyShadowDirection.RIGHTBOTTOM:
+            case CrazyShadowDirection.RIGHT_BOTTOM:
                 degrees = 180;
                 break;
-            case CrazyShadowDirection.LEFTBOTTOM:
+            case CrazyShadowDirection.BOTTOM_LEFT:
                 degrees = 270;
                 break;
             default:
                 degrees = 0;
-        }
-    }
-
-    @CornerShadowType
-    public void setType(@CornerShadowType int type) {
-        switch (type) {
-            case CornerShadowType.SECTOR:
-                buildSectorShadow();
-                break;
-            case CornerShadowType.RINGSECTOR:
-                buildRingSectorShadow();
-                break;
-            default:
-                buildSectorShadow();
         }
     }
 
@@ -151,9 +120,6 @@ public class CornerShadowView extends View {
 
         @CrazyShadowDirection
         private int direction;
-
-        @CornerShadowType
-        private int type;
 
         public Builder setContext(Context context) {
             this.context = context;
@@ -181,11 +147,6 @@ public class CornerShadowView extends View {
             return this;
         }
 
-        public Builder setType(@CornerShadowType int type) {
-            this.type = type;
-            return this;
-        }
-
         public CornerShadowView create() {
             // 创建 CornerShadowView
             CornerShadowView cornerShadowView = new CornerShadowView(context);
@@ -193,7 +154,7 @@ public class CornerShadowView extends View {
             cornerShadowView.setCornerRadius(cornerRadius);
             cornerShadowView.setShadowSize(shadowSize);
             cornerShadowView.setDirection(direction);
-            cornerShadowView.setType(type);
+            cornerShadowView.buildRingSectorShadow();
             return cornerShadowView;
         }
     }
