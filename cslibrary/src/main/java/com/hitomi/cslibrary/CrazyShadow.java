@@ -96,7 +96,7 @@ public class CrazyShadow {
             if (colors == null)
                 // 默认的颜色。由深到浅
                 //分别为开始颜色，中间夜色，结束颜色
-                colors = new int[]{0x43000000, 0x17000000, 0x00000000};
+                colors = new int[]{0x63000000, 0x32000000, 0x00000000};
             CrazyShadowAttr attr = new CrazyShadowAttr();
             attr.setImpl(impl);
             attr.setBaseColor(baseColor);
