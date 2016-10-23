@@ -16,6 +16,15 @@ public class MainActivity extends AppCompatActivity {
 
         new CrazyShadow.Builder()
                 .setContext(this)
+                .setDirection(CrazyShadowDirection.BOTTOM)
+                .setShadowRadius(10)
+                .setBackground(Color.BLUE)
+                .setImpl(CrazyShadow.IMPL_WRAPPER)
+                .action(findViewById(R.id.relay_title));
+
+
+        new CrazyShadow.Builder()
+                .setContext(this)
                 .setDirection(CrazyShadowDirection.ALL)
                 .setShadowRadius(40)
                 .setCorner(20)
@@ -23,7 +32,5 @@ public class MainActivity extends AppCompatActivity {
                 .setImpl(CrazyShadow.IMPL_DRAWABLE)
                 .action(findViewById(R.id.frame_layout));
 
-
-//        findViewById(R.id.frame).setBackgroundDrawable(new RoundRectShadowDrawable(Color.TRANSPARENT, 6, 20, 20));
     }
 }

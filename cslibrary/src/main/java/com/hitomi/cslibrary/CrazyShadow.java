@@ -33,7 +33,7 @@ public class CrazyShadow {
 
     private ShadowHandler shadowHandler;
 
-    public CrazyShadow(Context context) {
+    private CrazyShadow(Context context) {
         this.context = context;
     }
 
