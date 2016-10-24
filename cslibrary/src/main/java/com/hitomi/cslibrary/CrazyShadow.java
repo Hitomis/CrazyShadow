@@ -4,6 +4,9 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import com.hitomi.cslibrary.base.CrazyShadowAttr;
+import com.hitomi.cslibrary.base.CrazyShadowDirection;
+import com.hitomi.cslibrary.base.ShadowHandler;
 import com.hitomi.cslibrary.drawable.ShadowDrawer;
 import com.hitomi.cslibrary.floatable.ShadowFloater;
 import com.hitomi.cslibrary.wrap.ShadowWrapper;
@@ -114,7 +117,7 @@ public class CrazyShadow {
         }
 
         /**
-         * 阴影的基本颜色，即最深的颜色, {@link com.hitomi.cslibrary.CrazyShadowAttr#setBaseShadowColor(int)}
+         * 阴影的基本颜色，即最深的颜色, {@link CrazyShadowAttr#setBaseShadowColor(int)}
          * 方法会自动计算出绘制阴影时需要的 {@link #colors}
          * @param baseColor
          * @return Builder
@@ -168,7 +171,7 @@ public class CrazyShadow {
         }
 
         /**
-         * 设置阴影的方向，具体查看 {@link com.hitomi.cslibrary.CrazyShadowAttr}
+         * 设置阴影的方向，具体查看 {@link CrazyShadowAttr}
          * @param direction
          * @return Builder
          */

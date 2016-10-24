@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hitomi.cslibrary.CrazyShadow;
-import com.hitomi.cslibrary.CrazyShadowDirection;
+import com.hitomi.cslibrary.base.CrazyShadowDirection;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         new CrazyShadow.Builder()
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.ALL)
-                .setShadowRadius(10)
+                .setShadowRadius(30)
                 .setCorner(8)
                 .setImpl(CrazyShadow.IMPL_FLOAT)
                 .action(findViewById(R.id.frame_layout));

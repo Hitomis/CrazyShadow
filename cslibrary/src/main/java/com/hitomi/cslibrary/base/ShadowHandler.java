@@ -1,4 +1,4 @@
-package com.hitomi.cslibrary;
+package com.hitomi.cslibrary.base;
 
 import android.view.View;
 

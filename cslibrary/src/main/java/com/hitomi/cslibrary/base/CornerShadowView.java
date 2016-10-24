@@ -1,4 +1,4 @@
-package com.hitomi.cslibrary.wrap;
+package com.hitomi.cslibrary.base;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,8 +8,6 @@ import android.graphics.RadialGradient;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.view.View;
-
-import com.hitomi.cslibrary.CrazyShadowDirection;
 
 /**
  * Created by hitomi on 2016/10/18.

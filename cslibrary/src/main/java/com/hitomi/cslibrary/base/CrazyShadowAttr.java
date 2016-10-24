@@ -1,4 +1,4 @@
-package com.hitomi.cslibrary;
+package com.hitomi.cslibrary.base;
 
 import android.support.v4.graphics.ColorUtils;
 
@@ -45,7 +45,7 @@ public class CrazyShadowAttr {
     private float shadowRadius;
 
     /**
-     * 设置阴影的方向，具体查看 {@link com.hitomi.cslibrary.CrazyShadowAttr}
+     * 设置阴影的方向，具体查看 {@link CrazyShadowAttr}
      */
     @CrazyShadowDirection
     private int direction;

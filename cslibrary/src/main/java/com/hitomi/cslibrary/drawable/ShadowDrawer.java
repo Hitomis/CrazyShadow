@@ -2,8 +2,8 @@ package com.hitomi.cslibrary.drawable;
 
 import android.view.View;
 
-import com.hitomi.cslibrary.CrazyShadowAttr;
-import com.hitomi.cslibrary.ShadowHandler;
+import com.hitomi.cslibrary.base.CrazyShadowAttr;
+import com.hitomi.cslibrary.base.ShadowHandler;
 
 /**
  * Created by hitomi on 2016/10/21.
