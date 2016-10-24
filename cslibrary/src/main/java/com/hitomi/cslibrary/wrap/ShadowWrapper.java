@@ -44,15 +44,18 @@ public class ShadowWrapper implements ShadowHandler {
     }
 
     private void prepareLayout() {
-        shadowLayout = new RelativeLayout(context);
         ViewGroup parent = (ViewGroup) contentView.getParent();
         int orignalIndex = parent.indexOfChild(contentView);
         parent.removeView(contentView);
-        RelativeLayout.LayoutParams rlp = getContentViewLayoutParams();
-        shadowLayout.setLayoutParams(new RelativeLayout.LayoutParams(
-                contentView.getWidth(), contentView.getHeight()));
+
+        shadowLayout = new RelativeLayout(context);
+        ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
+        layoutParams.width = contentView.getWidth();
+        layoutParams.height = contentView.getHeight();
+        shadowLayout.setLayoutParams(layoutParams);
         parent.addView(shadowLayout, orignalIndex);
-        shadowLayout.addView(contentView, rlp);
+
+        shadowLayout.addView(contentView, getContentViewLayoutParams());
     }
 
     @NonNull
