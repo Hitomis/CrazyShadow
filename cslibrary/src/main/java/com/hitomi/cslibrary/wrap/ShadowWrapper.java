@@ -15,9 +15,13 @@ import com.hitomi.cslibrary.ShadowHandler;
 /**
  * Created by hitomi on 2016/10/17.
  */
-public class ShadowWrapper extends RelativeLayout implements ShadowHandler {
+public class ShadowWrapper implements ShadowHandler {
+
+    private Context context;
 
     private View contentView;
+
+    private RelativeLayout shadowLayout;
 
     private OnMeasureListener measureListener;
 
@@ -26,75 +30,76 @@ public class ShadowWrapper extends RelativeLayout implements ShadowHandler {
     private CrazyShadowAttr attr;
 
     public ShadowWrapper(Context context, CrazyShadowAttr attr) {
-        super(context);
+        this.context = context;
         this.attr = attr;
         measureListener = new OnMeasureListener();
     }
 
     private void prepareLayout() {
-        ShadowWrapper shadowLayout = ShadowWrapper.this;
+        shadowLayout = new RelativeLayout(context);
         ViewGroup parent = (ViewGroup) contentView.getParent();
         int orignalIndex = parent.indexOfChild(contentView);
         parent.removeView(contentView);
-        LayoutParams rlp = getContentViewLayoutParams();
-        shadowLayout.setLayoutParams(new LayoutParams(contentView.getWidth(), contentView.getHeight()));
+        RelativeLayout.LayoutParams rlp = getContentViewLayoutParams();
+        shadowLayout.setLayoutParams(new RelativeLayout.LayoutParams(
+                contentView.getWidth(), contentView.getHeight()));
         parent.addView(shadowLayout, orignalIndex);
         shadowLayout.addView(contentView, rlp);
     }
 
     @NonNull
-    private LayoutParams getContentViewLayoutParams() {
+    private RelativeLayout.LayoutParams getContentViewLayoutParams() {
         int width, height;
-        LayoutParams rlp;
+        RelativeLayout.LayoutParams rlp;
         int direction = attr.getDirection();
         if (direction == CrazyShadowDirection.LEFT || direction == CrazyShadowDirection.RIGHT) {
             width = (int) (contentView.getWidth() - attr.getShadowRadius());
             height = contentView.getHeight();
-            rlp = new LayoutParams(width, height);
+            rlp = new RelativeLayout.LayoutParams(width, height);
             if (direction == CrazyShadowDirection.LEFT)
-                rlp.addRule(ALIGN_PARENT_RIGHT);
+                rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         } else if (direction == CrazyShadowDirection.TOP || direction == CrazyShadowDirection.BOTTOM) {
             width = contentView.getWidth();
             height = (int) (contentView.getHeight() - attr.getShadowRadius());
-            rlp = new LayoutParams(width, height);
+            rlp = new RelativeLayout.LayoutParams(width, height);
             if (direction == CrazyShadowDirection.TOP)
-                rlp.addRule(ALIGN_PARENT_BOTTOM);
+                rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         } else if (direction == CrazyShadowDirection.LEFT_TOP || direction == CrazyShadowDirection.TOP_RIGHT) {
             width = (int) (contentView.getWidth() - attr.getShadowRadius());
             height = (int) (contentView.getHeight() - attr.getShadowRadius());
-            rlp = new LayoutParams(width, height);
+            rlp = new RelativeLayout.LayoutParams(width, height);
             if (direction == CrazyShadowDirection.LEFT_TOP) {
-                rlp.addRule(ALIGN_PARENT_RIGHT);
+                rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             } else {
-                rlp.addRule(ALIGN_PARENT_LEFT);
+                rlp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
             }
-            rlp.addRule(ALIGN_PARENT_BOTTOM);
+            rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         } else if (direction == CrazyShadowDirection.BOTTOM_LEFT || direction == CrazyShadowDirection.RIGHT_BOTTOM) {
             width = (int) (contentView.getWidth() - attr.getShadowRadius());
             height = (int) (contentView.getHeight() - attr.getShadowRadius());
-            rlp = new LayoutParams(width, height);
+            rlp = new RelativeLayout.LayoutParams(width, height);
             if (direction == CrazyShadowDirection.BOTTOM_LEFT)
-                rlp.addRule(ALIGN_PARENT_RIGHT);
+                rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         } else if (direction == CrazyShadowDirection.BOTTOM_LEFT_TOP || direction == CrazyShadowDirection.TOP_RIGHT_BOTTOM) {
             width = (int) (contentView.getWidth() - attr.getShadowRadius());
             height = (int) (contentView.getHeight() - attr.getShadowRadius() * 2);
-            rlp = new LayoutParams(width, height);
+            rlp = new RelativeLayout.LayoutParams(width, height);
             if (direction == CrazyShadowDirection.BOTTOM_LEFT_TOP) {
-                rlp.addRule(ALIGN_PARENT_RIGHT);
+                rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             }
-            rlp.addRule(CENTER_VERTICAL);
+            rlp.addRule(RelativeLayout.CENTER_VERTICAL);
         } else if (direction == CrazyShadowDirection.LEFT_TOP_RIGHT || direction == CrazyShadowDirection.RIGHT_BOTTOM_LEFT) {
             width = (int) (contentView.getWidth() - attr.getShadowRadius() * 2);
             height = (int) (contentView.getHeight() - attr.getShadowRadius());
-            rlp = new LayoutParams(width, height);
+            rlp = new RelativeLayout.LayoutParams(width, height);
             if (direction == CrazyShadowDirection.LEFT_TOP_RIGHT) {
-                rlp.addRule(ALIGN_PARENT_BOTTOM);
+                rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             }
-            rlp.addRule(CENTER_HORIZONTAL);
+            rlp.addRule(RelativeLayout.CENTER_HORIZONTAL);
         } else { // All
             width = (int) (contentView.getWidth() - attr.getShadowRadius() * 2);
             height = (int) (contentView.getHeight() - attr.getShadowRadius() * 2);
-            rlp = new LayoutParams(width, height);
+            rlp = new RelativeLayout.LayoutParams(width, height);
             rlp.addRule(RelativeLayout.CENTER_IN_PARENT);
         }
         return rlp;
@@ -151,7 +156,7 @@ public class ShadowWrapper extends RelativeLayout implements ShadowHandler {
 
     private void addEdgeShadow() {
         EdgeShadowView.Builder edgeShadowBuilder = new EdgeShadowView.Builder()
-                .setContext(getContext())
+                .setContext(context)
                 .setShadowColors(attr.getColors())
                 .setCornerRadius(attr.getCorner());
 
@@ -169,18 +174,18 @@ public class ShadowWrapper extends RelativeLayout implements ShadowHandler {
     }
 
     private void decorateLeft(EdgeShadowView.Builder edgeShadowBuilder) {
-        LayoutParams leftRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams leftRlp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         float shadowSize;
         if (attr.getDirection() == CrazyShadowDirection.LEFT) {
             shadowSize = contentView.getHeight();
         } else if (attr.getDirection() == CrazyShadowDirection.ALL
                 || attr.getDirection() == CrazyShadowDirection.BOTTOM_LEFT_TOP) {
             shadowSize = contentView.getHeight() - 2 * (attr.getShadowRadius() + attr.getCorner());
-            leftRlp.addRule(CENTER_VERTICAL);
+            leftRlp.addRule(RelativeLayout.CENTER_VERTICAL);
         } else {
             shadowSize = contentView.getHeight() - attr.getShadowRadius() - attr.getCorner();
             if (attr.getDirection() == CrazyShadowDirection.LEFT_TOP || attr.getDirection() == CrazyShadowDirection.LEFT_TOP_RIGHT) {
-                leftRlp.addRule(ALIGN_PARENT_BOTTOM);
+                leftRlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             }
         }
         EdgeShadowView leftEdgeShadow = edgeShadowBuilder
@@ -188,22 +193,23 @@ public class ShadowWrapper extends RelativeLayout implements ShadowHandler {
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.LEFT)
                 .create();
-        addView(leftEdgeShadow, leftRlp);
+        shadowLayout.addView(leftEdgeShadow, leftRlp);
     }
 
     private void decorateTop(EdgeShadowView.Builder edgeShadowBuilder) {
-        LayoutParams topRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        RelativeLayout.LayoutParams topRlp = new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         float shadowSize;
         if (attr.getDirection() == CrazyShadowDirection.TOP) {
             shadowSize = contentView.getWidth();
         } else if (attr.getDirection() == CrazyShadowDirection.ALL
                 || attr.getDirection() == CrazyShadowDirection.LEFT_TOP_RIGHT) {
             shadowSize = contentView.getWidth() - 2 * (attr.getShadowRadius() + attr.getCorner());
-            topRlp.addRule(CENTER_HORIZONTAL);
+            topRlp.addRule(RelativeLayout.CENTER_HORIZONTAL);
         } else {
             shadowSize = contentView.getWidth() - attr.getShadowRadius() - attr.getCorner();
             if (attr.getDirection() == CrazyShadowDirection.LEFT_TOP || attr.getDirection() == CrazyShadowDirection.BOTTOM_LEFT_TOP) {
-                topRlp.addRule(ALIGN_PARENT_RIGHT);
+                topRlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             }
         }
         EdgeShadowView topEdgeShadow = edgeShadowBuilder
@@ -211,23 +217,23 @@ public class ShadowWrapper extends RelativeLayout implements ShadowHandler {
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.TOP)
                 .create();
-        addView(topEdgeShadow, topRlp);
+        shadowLayout.addView(topEdgeShadow, topRlp);
     }
 
     private void decorateRight(EdgeShadowView.Builder edgeShadowBuilder) {
-        LayoutParams rightRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        rightRlp.addRule(ALIGN_PARENT_RIGHT);
+        RelativeLayout.LayoutParams rightRlp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        rightRlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         float shadowSize;
         if (attr.getDirection() == CrazyShadowDirection.RIGHT) {
             shadowSize = contentView.getHeight();
         } else if (attr.getDirection() == CrazyShadowDirection.ALL
                 || attr.getDirection() == CrazyShadowDirection.TOP_RIGHT_BOTTOM) {
             shadowSize = contentView.getHeight() - 2 * (attr.getShadowRadius() + attr.getCorner());
-            rightRlp.addRule(CENTER_VERTICAL);
+            rightRlp.addRule(RelativeLayout.CENTER_VERTICAL);
         } else {
             shadowSize = contentView.getHeight() - attr.getShadowRadius() - attr.getCorner();
             if (attr.getDirection() == CrazyShadowDirection.TOP_RIGHT || attr.getDirection() == CrazyShadowDirection.LEFT_TOP_RIGHT) {
-                rightRlp.addRule(ALIGN_PARENT_BOTTOM);
+                rightRlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             }
         }
         EdgeShadowView rightEdgeShadow = edgeShadowBuilder
@@ -235,23 +241,23 @@ public class ShadowWrapper extends RelativeLayout implements ShadowHandler {
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.RIGHT)
                 .create();
-        addView(rightEdgeShadow, rightRlp);
+        shadowLayout.addView(rightEdgeShadow, rightRlp);
     }
 
     private void decorateBottom(EdgeShadowView.Builder edgeShadowBuilder) {
-        LayoutParams bottomRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        bottomRlp.addRule(ALIGN_PARENT_BOTTOM);
+        RelativeLayout.LayoutParams bottomRlp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        bottomRlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         float shadowSize;
         if (attr.getDirection() == CrazyShadowDirection.BOTTOM) {
             shadowSize = contentView.getWidth();
         } else if (attr.getDirection() == CrazyShadowDirection.ALL
                 || attr.getDirection() == CrazyShadowDirection.RIGHT_BOTTOM_LEFT) {
             shadowSize = contentView.getWidth() - 2 * (attr.getShadowRadius() + attr.getCorner());
-            bottomRlp.addRule(CENTER_HORIZONTAL);
+            bottomRlp.addRule(RelativeLayout.CENTER_HORIZONTAL);
         } else {
             shadowSize = contentView.getWidth() - attr.getShadowRadius() - attr.getCorner();
             if (attr.getDirection() == CrazyShadowDirection.BOTTOM_LEFT || attr.getDirection() == CrazyShadowDirection.BOTTOM_LEFT_TOP) {
-                bottomRlp.addRule(ALIGN_PARENT_RIGHT);
+                bottomRlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             }
         }
         EdgeShadowView bottomEdgeShadow = edgeShadowBuilder
@@ -259,12 +265,12 @@ public class ShadowWrapper extends RelativeLayout implements ShadowHandler {
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.BOTTOM)
                 .create();
-        addView(bottomEdgeShadow, bottomRlp);
+        shadowLayout.addView(bottomEdgeShadow, bottomRlp);
     }
 
     private void addCornerShadow() {
         CornerShadowView.Builder cornerShadowbuilder = new CornerShadowView.Builder()
-                .setContext(getContext())
+                .setContext(context)
                 .setShadowColors(attr.getColors())
                 .setShadowSize(attr.getShadowRadius())
                 .setCornerRadius(attr.getCorner());
@@ -286,44 +292,44 @@ public class ShadowWrapper extends RelativeLayout implements ShadowHandler {
         CornerShadowView leftTopCornerShadow = cornerShadowbuilder
                 .setDirection(CrazyShadowDirection.LEFT_TOP)
                 .create();
-        LayoutParams leftTopRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
+        RelativeLayout.LayoutParams leftTopRlp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
                 , ViewGroup.LayoutParams.WRAP_CONTENT);
-        leftTopRlp.addRule(ALIGN_PARENT_TOP);
-        leftTopRlp.addRule(ALIGN_PARENT_LEFT);
-        addView(leftTopCornerShadow, leftTopRlp);
+        leftTopRlp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        leftTopRlp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        shadowLayout.addView(leftTopCornerShadow, leftTopRlp);
     }
 
     private void decorateRightTop(CornerShadowView.Builder cornerShadowbuilder) {
         CornerShadowView rightTopCornerShadow = cornerShadowbuilder
                 .setDirection(CrazyShadowDirection.TOP_RIGHT)
                 .create();
-        LayoutParams rightTopRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
+        RelativeLayout.LayoutParams rightTopRlp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
                 , ViewGroup.LayoutParams.WRAP_CONTENT);
-        rightTopRlp.addRule(ALIGN_PARENT_TOP);
-        rightTopRlp.addRule(ALIGN_PARENT_RIGHT);
-        addView(rightTopCornerShadow, rightTopRlp);
+        rightTopRlp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        rightTopRlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        shadowLayout.addView(rightTopCornerShadow, rightTopRlp);
     }
 
     private void decorateRightBottom(CornerShadowView.Builder cornerShadowbuilder) {
         CornerShadowView RightBottomCornerShadow = cornerShadowbuilder
                 .setDirection(CrazyShadowDirection.RIGHT_BOTTOM)
                 .create();
-        LayoutParams rightBottomRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
+        RelativeLayout.LayoutParams rightBottomRlp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
                 , ViewGroup.LayoutParams.WRAP_CONTENT);
-        rightBottomRlp.addRule(ALIGN_PARENT_BOTTOM);
-        rightBottomRlp.addRule(ALIGN_PARENT_RIGHT);
-        addView(RightBottomCornerShadow, rightBottomRlp);
+        rightBottomRlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        rightBottomRlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        shadowLayout.addView(RightBottomCornerShadow, rightBottomRlp);
     }
 
     private void decorateLeftBottom(CornerShadowView.Builder cornerShadowbuilder) {
         CornerShadowView leftBottomCornerShadow = cornerShadowbuilder
                 .setDirection(CrazyShadowDirection.BOTTOM_LEFT)
                 .create();
-        LayoutParams leftBottomRlp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
+        RelativeLayout.LayoutParams leftBottomRlp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
                 , ViewGroup.LayoutParams.WRAP_CONTENT);
-        leftBottomRlp.addRule(ALIGN_PARENT_BOTTOM);
-        leftBottomRlp.addRule(ALIGN_PARENT_LEFT);
-        addView(leftBottomCornerShadow, leftBottomRlp);
+        leftBottomRlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        leftBottomRlp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        shadowLayout.addView(leftBottomCornerShadow, leftBottomRlp);
     }
 
     @Override
@@ -341,7 +347,7 @@ public class ShadowWrapper extends RelativeLayout implements ShadowHandler {
                 prepareLayout();
                 addShadow();
                 init = false;
-                getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                shadowLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
             }
         }
     }

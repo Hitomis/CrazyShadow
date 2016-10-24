@@ -26,10 +26,9 @@ public class MainActivity extends AppCompatActivity {
         new CrazyShadow.Builder()
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.ALL)
-                .setShadowRadius(40)
-                .setCorner(20)
-                .setBaseShadowColor(Color.BLACK)
-                .setImpl(CrazyShadow.IMPL_DRAWABLE)
+                .setShadowRadius(10)
+                .setCorner(8)
+                .setImpl(CrazyShadow.IMPL_WRAPPER)
                 .action(findViewById(R.id.frame_layout));
 
     }

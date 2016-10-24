@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import com.hitomi.cslibrary.drawable.ShadowDrawer;
-import com.hitomi.cslibrary.floatable.ShadowFloater;
 import com.hitomi.cslibrary.wrap.ShadowWrapper;
 
 /**
@@ -43,7 +42,7 @@ public class CrazyShadow {
         } else if (attr.getImpl().equals(IMPL_WRAPPER)) {
             shadowHandler = new ShadowWrapper(context, attr);
         } else {
-            shadowHandler = new ShadowFloater();
+//            shadowHandler = new ShadowFloater();
         }
     }
 
