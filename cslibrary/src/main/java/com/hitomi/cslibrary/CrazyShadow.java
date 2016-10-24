@@ -22,17 +22,17 @@ public class CrazyShadow {
 
     /**
      * 以 {@link android.view.View#setBackground(Drawable)} 的形式为你的
-     * View 添加阴影背景，同时可以设置圆角
+     * View 添加阴影背景，同时可以设置圆角 [{@link com.hitomi.cslibrary.draw.ShadowDrawer}]
      */
     public static final String IMPL_DRAW = "drawer";
 
     /**
-     * 以包装的形式为你的 View 添加阴影
+     * 以包装的形式为你的 View 添加阴影 [{@link com.hitomi.cslibrary.wrap.ShadowWrapper}]
      */
     public static final String IMPL_WRAP = "wrapper";
 
     /**
-     * 以沉淀修饰的形式为你的 View 添加阴影
+     * 以沉淀修饰的形式为你的 View 添加阴影 [{@link com.hitomi.cslibrary.fall.ShadowFalling}]
      */
     public static final String IMPL_FALL = "falling";
 
