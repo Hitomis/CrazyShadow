@@ -7,30 +7,34 @@ import android.view.View;
 import com.hitomi.cslibrary.base.CrazyShadowAttr;
 import com.hitomi.cslibrary.base.CrazyShadowDirection;
 import com.hitomi.cslibrary.base.ShadowHandler;
-import com.hitomi.cslibrary.drawable.ShadowDrawer;
-import com.hitomi.cslibrary.floatable.ShadowFloater;
+import com.hitomi.cslibrary.draw.ShadowDrawer;
+import com.hitomi.cslibrary.fall.ShadowFalling;
 import com.hitomi.cslibrary.wrap.ShadowWrapper;
 
 /**
  * Created by hitomi on 2016/10/19.
+ *
+ * email : 196425254@qq.com
+ *
+ * https://github.com/Hitomis
  */
 public class CrazyShadow {
 
     /**
      * 以 {@link android.view.View#setBackground(Drawable)} 的形式为你的
-     * View 设置阴影背景，同时可以设置圆角
+     * View 添加阴影背景，同时可以设置圆角
      */
     public static final String IMPL_DRAW = "drawer";
 
     /**
-     * 以包装的形式为你的 View 设置阴影
+     * 以包装的形式为你的 View 添加阴影
      */
-    public static final String IMPL_WRAP = "wrappper";
+    public static final String IMPL_WRAP = "wrapper";
 
     /**
-     * 以浮动的形式为你的 View 设置阴影
+     * 以沉淀修饰的形式为你的 View 添加阴影
      */
-    public static final String IMPL_FLOAT = "floater";
+    public static final String IMPL_FALL = "falling";
 
     private Context context;
 
@@ -46,7 +50,7 @@ public class CrazyShadow {
         } else if (attr.getImpl().equals(IMPL_WRAP)) {
             shadowHandler = new ShadowWrapper(context, attr);
         } else {
-            shadowHandler = new ShadowFloater(context, attr);
+            shadowHandler = new ShadowFalling(context, attr);
         }
     }
 
@@ -61,7 +65,7 @@ public class CrazyShadow {
         /**
          * {@link #IMPL_DRAW} <br/>
          * {@link #IMPL_WRAP} <br/>
-         * {@link #IMPL_FLOAT} <br/>
+         * {@link #IMPL_FALL} <br/>
          */
         private String impl;
 
@@ -82,7 +86,7 @@ public class CrazyShadow {
 
         /**
          * 对 {@link #IMPL_DRAW} 形式表示为背景的圆角角度.<br/>
-         * 对 {@link #IMPL_WRAP} 与 {@link #IMPL_FLOAT}
+         * 对 {@link #IMPL_WRAP} 与 {@link #IMPL_FALL}
          * 表示为阴影顶点的内侧弧度。以适配被设置的 View 是圆角的情况
          */
         private float corner;
@@ -107,7 +111,7 @@ public class CrazyShadow {
          *  以何种方式添加阴影:<br/>
          * {@link #IMPL_DRAW} <br/>
          * {@link #IMPL_WRAP} <br/>
-         * {@link #IMPL_FLOAT} <br/>
+         * {@link #IMPL_FALL} <br/>
          * @param impl
          * @return Builder
          */
@@ -150,7 +154,7 @@ public class CrazyShadow {
 
         /**
          * 对 {@link #IMPL_DRAW} 形式表示为背景的圆角角度.<br/>
-         * 对 {@link #IMPL_WRAP} 与 {@link #IMPL_FLOAT}
+         * 对 {@link #IMPL_WRAP} 与 {@link #IMPL_FALL}
          * 表示为阴影顶点的内侧弧度。以适配被设置的 View 是圆角的情况
          * @param corner
          * @return Builder
@@ -200,7 +204,7 @@ public class CrazyShadow {
 
         /**
          * 绘制阴影的启动方法，你需要保证参数已经正确设置完毕
-         * @param view 被设置阴影的 View
+         * @param view 被添加阴影的 View
          */
         public void action(View view) {
             create().make(view);

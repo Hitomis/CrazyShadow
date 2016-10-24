@@ -11,7 +11,7 @@ public class CrazyShadowAttr {
      * 以何种方式添加阴影:<br/>
      * {@link com.hitomi.cslibrary.CrazyShadow#IMPL_DRAW} <br/>
      * {@link com.hitomi.cslibrary.CrazyShadow#IMPL_WRAP} <br/>
-     * {@link com.hitomi.cslibrary.CrazyShadow#IMPL_FLOAT} <br/>
+     * {@link com.hitomi.cslibrary.CrazyShadow#IMPL_FALL} <br/>
      */
     private String impl;
 
@@ -34,7 +34,7 @@ public class CrazyShadowAttr {
     /**
      * 对 {@link com.hitomi.cslibrary.CrazyShadow#IMPL_DRAW} 形式表示为背景的圆角角度.<br/>
      * 对 {@link com.hitomi.cslibrary.CrazyShadow#IMPL_WRAP} 与
-     * {@link com.hitomi.cslibrary.CrazyShadow#IMPL_FLOAT}
+     * {@link com.hitomi.cslibrary.CrazyShadow#IMPL_FALL}
      * 表示为阴影顶点的内侧弧度。以适配被设置的 View 是圆角的情况
      */
     private float corner;

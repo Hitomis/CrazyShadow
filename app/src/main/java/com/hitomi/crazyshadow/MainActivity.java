@@ -1,5 +1,6 @@
 package com.hitomi.crazyshadow;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -17,16 +18,17 @@ public class MainActivity extends AppCompatActivity {
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.BOTTOM)
                 .setShadowRadius(10)
-                .setImpl(CrazyShadow.IMPL_WRAP)
+                .setImpl(CrazyShadow.IMPL_FALL)
                 .action(findViewById(R.id.relay_title));
 
 
         new CrazyShadow.Builder()
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.ALL)
-                .setShadowRadius(30)
+                .setShadowRadius(14)
                 .setCorner(8)
-                .setImpl(CrazyShadow.IMPL_FLOAT)
+                .setBackground(Color.BLUE)
+                .setImpl(CrazyShadow.IMPL_FALL)
                 .action(findViewById(R.id.frame_layout));
 
     }

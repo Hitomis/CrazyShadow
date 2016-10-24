@@ -15,7 +15,13 @@ import com.hitomi.cslibrary.base.ShadowHandler;
 
 
 /**
- * Created by hitomi on 2016/10/17.
+ * Created by hitomi on 2016/10/17. <br/>
+ *
+ * 使用包装的方式为 View 添加阴影。<br/>
+ *
+ * 其原理是根据配置的阴影尺寸大小来修改原 View 的大小后，在原 View 的四周
+ * 附加阴影效果。<br/>
+ *
  */
 public class ShadowWrapper implements ShadowHandler {
 

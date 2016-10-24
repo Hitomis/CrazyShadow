@@ -1,7 +1,9 @@
-package com.hitomi.cslibrary.floatable;
+package com.hitomi.cslibrary.fall;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -13,9 +15,16 @@ import com.hitomi.cslibrary.base.CornerShadowView;
 import com.hitomi.cslibrary.base.EdgeShadowView;
 
 /**
- * Created by hitomi on 2016/10/19.
+ * Created by hitomi on 2016/10/19. <br/>
+ *
+ * 考虑到不希望改变原 View 大小的情况，而又需要阴影效果的情况下。
+ * 此种方案应运而生，其原理是在原 View 根布局层面中添加阴影效果。
+ * 从 Z 轴的角度看就像是沉淀在原 View 的周围一样。不过因为与原
+ * View 不在一个布局层面上，所以当发生用户交互使原 View 的位置
+ * 发生改变后，阴影还是会留在原来的位置。
+ *
  */
-public class ShadowFloater implements ShadowHandler {
+public class ShadowFalling implements ShadowHandler {
 
     private CrazyShadowAttr attr;
 
@@ -25,7 +34,7 @@ public class ShadowFloater implements ShadowHandler {
 
     private boolean init;
 
-    public ShadowFloater(Context context, CrazyShadowAttr attr) {
+    public ShadowFalling(Context context, CrazyShadowAttr attr) {
         this.context = context;
         this.attr = attr;
     }
@@ -35,13 +44,20 @@ public class ShadowFloater implements ShadowHandler {
         addCornerShadow();
     }
 
+    private FrameLayout getParentContainer() {
+        Activity activity = (Activity) context;
+        ViewGroup decorView = (ViewGroup)activity.getWindow().getDecorView();
+        ViewGroup viewGroup = (ViewGroup) decorView.getChildAt(0);
+        return (FrameLayout) viewGroup.getChildAt(1);
+    }
+
     private void addEdgeShadow() {
         EdgeShadowView.Builder edgeShadowBuilder = new EdgeShadowView.Builder()
                 .setContext(context)
                 .setShadowColors(attr.getColors())
                 .setCornerRadius(attr.getCorner())
                 .setShadowRadius(attr.getShadowRadius());
-        FrameLayout parentLayout = (FrameLayout) contentView.getParent().getParent();
+        FrameLayout parentLayout = getParentContainer();
 
         if (attr.containLeft())
             decorateLeft(edgeShadowBuilder, parentLayout);
@@ -182,7 +198,7 @@ public class ShadowFloater implements ShadowHandler {
                 .setShadowColors(attr.getColors())
                 .setShadowSize(attr.getShadowRadius())
                 .setCornerRadius(attr.getCorner());
-        FrameLayout parentLayout = (FrameLayout) contentView.getParent().getParent();
+        FrameLayout parentLayout = getParentContainer();
 
         if (attr.containLeft() && attr.containTop())
             decorateLeftTop(cornerShadowBuilder, parentLayout);

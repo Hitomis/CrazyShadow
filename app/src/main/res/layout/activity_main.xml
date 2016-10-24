@@ -1,49 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
     tools:context="com.hitomi.crazyshadow.MainActivity">
 
-    <RelativeLayout
-        android:id="@+id/relay_title"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="#6161c9">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="我的标题"
-            android:textColor="@android:color/white" />
+        <RelativeLayout
+            android:id="@+id/relay_title"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="#6161c9">
 
-    </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="我的标题"
+                android:textColor="@android:color/white" />
 
-    <FrameLayout
-        android:id="@+id/frame_layout"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:background="#72b172" />
-
-    <android.support.v7.widget.CardView
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="20dp">
-
+        </RelativeLayout>
 
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#72b172" />
+            android:id="@+id/frame_layout"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:background="#72b172"
+            android:paddingLeft="20dp" />
 
-    </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="20dp">
 
 
-</LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#72b172" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="20dp">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#72b172" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="20dp">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#72b172" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="20dp">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#72b172" />
+
+        </android.support.v7.widget.CardView>
+
+
+    </LinearLayout>
+</ScrollView>
