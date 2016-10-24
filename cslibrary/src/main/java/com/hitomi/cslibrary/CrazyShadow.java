@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import com.hitomi.cslibrary.drawable.ShadowDrawer;
+import com.hitomi.cslibrary.floatable.ShadowFloater;
 import com.hitomi.cslibrary.wrap.ShadowWrapper;
 
 /**
@@ -16,17 +17,17 @@ public class CrazyShadow {
      * 以 {@link android.view.View#setBackground(Drawable)} 的形式为你的
      * View 设置阴影背景，同时可以设置圆角
      */
-    public static final String IMPL_DRAWABLE = "drawable";
+    public static final String IMPL_DRAW = "drawer";
 
     /**
      * 以包装的形式为你的 View 设置阴影
      */
-    public static final String IMPL_WRAPPER = "wrap";
+    public static final String IMPL_WRAP = "wrappper";
 
     /**
      * 以浮动的形式为你的 View 设置阴影
      */
-    public static final String IMPL_FLOAT = "floatable";
+    public static final String IMPL_FLOAT = "floater";
 
     private Context context;
 
@@ -37,12 +38,12 @@ public class CrazyShadow {
     }
 
     private void createShadowHandler(CrazyShadowAttr attr) {
-        if (attr.getImpl().equals(IMPL_DRAWABLE)) {
+        if (attr.getImpl().equals(IMPL_DRAW)) {
             shadowHandler = new ShadowDrawer(attr);
-        } else if (attr.getImpl().equals(IMPL_WRAPPER)) {
+        } else if (attr.getImpl().equals(IMPL_WRAP)) {
             shadowHandler = new ShadowWrapper(context, attr);
         } else {
-//            shadowHandler = new ShadowFloater();
+            shadowHandler = new ShadowFloater(context, attr);
         }
     }
 
@@ -55,8 +56,8 @@ public class CrazyShadow {
         private Context context;
 
         /**
-         * {@link #IMPL_DRAWABLE} <br/>
-         * {@link #IMPL_WRAPPER} <br/>
+         * {@link #IMPL_DRAW} <br/>
+         * {@link #IMPL_WRAP} <br/>
          * {@link #IMPL_FLOAT} <br/>
          */
         private String impl;
@@ -67,7 +68,7 @@ public class CrazyShadow {
         private int baseShadowColor;
 
         /**
-         * 针对 {@link #IMPL_DRAWABLE} 形式的方设置阴影时需要的背景色
+         * 针对 {@link #IMPL_DRAW} 形式的方设置阴影时需要的背景色
          */
         private int background;
 
@@ -77,8 +78,8 @@ public class CrazyShadow {
         private int[] colors;
 
         /**
-         * 对 {@link #IMPL_DRAWABLE} 形式表示为背景的圆角角度.<br/>
-         * 对 {@link #IMPL_WRAPPER} 与 {@link #IMPL_FLOAT}
+         * 对 {@link #IMPL_DRAW} 形式表示为背景的圆角角度.<br/>
+         * 对 {@link #IMPL_WRAP} 与 {@link #IMPL_FLOAT}
          * 表示为阴影顶点的内侧弧度。以适配被设置的 View 是圆角的情况
          */
         private float corner;
@@ -101,8 +102,8 @@ public class CrazyShadow {
 
         /**
          *  以何种方式添加阴影:<br/>
-         * {@link #IMPL_DRAWABLE} <br/>
-         * {@link #IMPL_WRAPPER} <br/>
+         * {@link #IMPL_DRAW} <br/>
+         * {@link #IMPL_WRAP} <br/>
          * {@link #IMPL_FLOAT} <br/>
          * @param impl
          * @return Builder
@@ -124,7 +125,7 @@ public class CrazyShadow {
         }
 
         /**
-         * 仅仅对 {@link #IMPL_DRAWABLE} 形式的方设置阴影时需要的属性, 用来设置
+         * 仅仅对 {@link #IMPL_DRAW} 形式的方设置阴影时需要的属性, 用来设置
          * Drawable 需要的背景色
          * @param background
          * @return Builder
@@ -145,8 +146,8 @@ public class CrazyShadow {
         }
 
         /**
-         * 对 {@link #IMPL_DRAWABLE} 形式表示为背景的圆角角度.<br/>
-         * 对 {@link #IMPL_WRAPPER} 与 {@link #IMPL_FLOAT}
+         * 对 {@link #IMPL_DRAW} 形式表示为背景的圆角角度.<br/>
+         * 对 {@link #IMPL_WRAP} 与 {@link #IMPL_FLOAT}
          * 表示为阴影顶点的内侧弧度。以适配被设置的 View 是圆角的情况
          * @param corner
          * @return Builder

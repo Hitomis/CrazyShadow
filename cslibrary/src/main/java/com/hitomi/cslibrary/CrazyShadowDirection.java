@@ -9,6 +9,8 @@ import android.support.annotation.IntDef;
         CrazyShadowDirection.RIGHT, CrazyShadowDirection.BOTTOM,
         CrazyShadowDirection.LEFT_TOP, CrazyShadowDirection.TOP_RIGHT,
         CrazyShadowDirection.RIGHT_BOTTOM, CrazyShadowDirection.BOTTOM_LEFT,
+        CrazyShadowDirection.BOTTOM_LEFT_TOP, CrazyShadowDirection.LEFT_TOP_RIGHT,
+        CrazyShadowDirection.TOP_RIGHT_BOTTOM, CrazyShadowDirection.RIGHT_BOTTOM_LEFT,
         CrazyShadowDirection.ALL})
 public @interface CrazyShadowDirection {
 

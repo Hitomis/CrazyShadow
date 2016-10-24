@@ -105,50 +105,6 @@ public class ShadowWrapper implements ShadowHandler {
         return rlp;
     }
 
-    private boolean containLeft() {
-        int direction = attr.getDirection();
-        return direction == CrazyShadowDirection.ALL ||
-                direction == CrazyShadowDirection.LEFT ||
-                direction == CrazyShadowDirection.LEFT_TOP ||
-                direction == CrazyShadowDirection.BOTTOM_LEFT ||
-                direction == CrazyShadowDirection.BOTTOM_LEFT_TOP ||
-                direction == CrazyShadowDirection.RIGHT_BOTTOM_LEFT ||
-                direction == CrazyShadowDirection.LEFT_TOP_RIGHT;
-    }
-
-    private boolean containTop() {
-        int direction = attr.getDirection();
-        return direction == CrazyShadowDirection.ALL ||
-                direction == CrazyShadowDirection.TOP ||
-                direction == CrazyShadowDirection.LEFT_TOP ||
-                direction == CrazyShadowDirection.TOP_RIGHT ||
-                direction == CrazyShadowDirection.LEFT_TOP_RIGHT ||
-                direction == CrazyShadowDirection.BOTTOM_LEFT_TOP ||
-                direction == CrazyShadowDirection.TOP_RIGHT_BOTTOM;
-    }
-
-    private boolean containRight() {
-        int direction = attr.getDirection();
-        return direction == CrazyShadowDirection.ALL ||
-                direction == CrazyShadowDirection.RIGHT ||
-                direction == CrazyShadowDirection.TOP_RIGHT ||
-                direction == CrazyShadowDirection.RIGHT_BOTTOM ||
-                direction == CrazyShadowDirection.TOP_RIGHT_BOTTOM ||
-                direction == CrazyShadowDirection.LEFT_TOP_RIGHT ||
-                direction == CrazyShadowDirection.RIGHT_BOTTOM_LEFT;
-    }
-
-    private boolean containBottom() {
-        int direction = attr.getDirection();
-        return direction == CrazyShadowDirection.ALL ||
-                direction == CrazyShadowDirection.BOTTOM ||
-                direction == CrazyShadowDirection.BOTTOM_LEFT ||
-                direction == CrazyShadowDirection.RIGHT_BOTTOM ||
-                direction == CrazyShadowDirection.RIGHT_BOTTOM_LEFT ||
-                direction == CrazyShadowDirection.TOP_RIGHT_BOTTOM ||
-                direction == CrazyShadowDirection.BOTTOM_LEFT_TOP;
-    }
-
     private void addShadow() {
         addEdgeShadow();
         addCornerShadow();
@@ -158,18 +114,19 @@ public class ShadowWrapper implements ShadowHandler {
         EdgeShadowView.Builder edgeShadowBuilder = new EdgeShadowView.Builder()
                 .setContext(context)
                 .setShadowColors(attr.getColors())
-                .setCornerRadius(attr.getCorner());
+                .setCornerRadius(attr.getCorner())
+                .setShadowRadius(attr.getShadowRadius());
 
-        if (containLeft())
+        if (attr.containLeft())
             decorateLeft(edgeShadowBuilder);
 
-        if (containTop())
+        if (attr.containTop())
             decorateTop(edgeShadowBuilder);
 
-        if (containRight())
+        if (attr.containRight())
             decorateRight(edgeShadowBuilder);
 
-        if (containBottom())
+        if (attr.containBottom())
             decorateBottom(edgeShadowBuilder);
     }
 
@@ -189,7 +146,6 @@ public class ShadowWrapper implements ShadowHandler {
             }
         }
         EdgeShadowView leftEdgeShadow = edgeShadowBuilder
-                .setShadowRadius(attr.getShadowRadius())
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.LEFT)
                 .create();
@@ -213,7 +169,6 @@ public class ShadowWrapper implements ShadowHandler {
             }
         }
         EdgeShadowView topEdgeShadow = edgeShadowBuilder
-                .setShadowRadius(attr.getShadowRadius())
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.TOP)
                 .create();
@@ -237,7 +192,6 @@ public class ShadowWrapper implements ShadowHandler {
             }
         }
         EdgeShadowView rightEdgeShadow = edgeShadowBuilder
-                .setShadowRadius(attr.getShadowRadius())
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.RIGHT)
                 .create();
@@ -261,7 +215,6 @@ public class ShadowWrapper implements ShadowHandler {
             }
         }
         EdgeShadowView bottomEdgeShadow = edgeShadowBuilder
-                .setShadowRadius(attr.getShadowRadius())
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.BOTTOM)
                 .create();
@@ -269,27 +222,27 @@ public class ShadowWrapper implements ShadowHandler {
     }
 
     private void addCornerShadow() {
-        CornerShadowView.Builder cornerShadowbuilder = new CornerShadowView.Builder()
+        CornerShadowView.Builder cornerShadowBuilder = new CornerShadowView.Builder()
                 .setContext(context)
                 .setShadowColors(attr.getColors())
                 .setShadowSize(attr.getShadowRadius())
                 .setCornerRadius(attr.getCorner());
 
-        if (containLeft() && containTop())
-            decorateLeftTop(cornerShadowbuilder);
+        if (attr.containLeft() && attr.containTop())
+            decorateLeftTop(cornerShadowBuilder);
 
-        if (containRight() && containTop())
-            decorateRightTop(cornerShadowbuilder);
+        if (attr.containRight() && attr.containTop())
+            decorateRightTop(cornerShadowBuilder);
 
-        if (containRight() && containBottom())
-            decorateRightBottom(cornerShadowbuilder);
+        if (attr.containRight() && attr.containBottom())
+            decorateRightBottom(cornerShadowBuilder);
 
-        if (containLeft() && containBottom())
-            decorateLeftBottom(cornerShadowbuilder);
+        if (attr.containLeft() && attr.containBottom())
+            decorateLeftBottom(cornerShadowBuilder);
     }
 
-    private void decorateLeftTop(CornerShadowView.Builder cornerShadowbuilder) {
-        CornerShadowView leftTopCornerShadow = cornerShadowbuilder
+    private void decorateLeftTop(CornerShadowView.Builder cornerShadowBuilder) {
+        CornerShadowView leftTopCornerShadow = cornerShadowBuilder
                 .setDirection(CrazyShadowDirection.LEFT_TOP)
                 .create();
         RelativeLayout.LayoutParams leftTopRlp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
@@ -347,7 +300,7 @@ public class ShadowWrapper implements ShadowHandler {
                 prepareLayout();
                 addShadow();
                 init = false;
-                shadowLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                contentView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
             }
         }
     }
