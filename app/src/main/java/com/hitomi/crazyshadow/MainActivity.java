@@ -18,9 +18,8 @@ public class MainActivity extends AppCompatActivity {
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.BOTTOM)
                 .setShadowRadius(10)
-                .setImpl(CrazyShadow.IMPL_FALL)
+                .setImpl(CrazyShadow.IMPL_WRAP)
                 .action(findViewById(R.id.relay_title));
-
 
         new CrazyShadow.Builder()
                 .setContext(this)
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
                 .setShadowRadius(14)
                 .setCorner(8)
                 .setBackground(Color.BLUE)
-                .setImpl(CrazyShadow.IMPL_FALL)
+                .setImpl(CrazyShadow.IMPL_WRAP)
                 .action(findViewById(R.id.frame_layout));
 
     }
