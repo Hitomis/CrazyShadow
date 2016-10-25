@@ -29,7 +29,7 @@
 导入 cslibrary Module 中的 作为依赖库，后期看情况是否上传到 Jcenter
 
 # Usage
-    ​```
+    ​
         new CrazyShadow.Builder()
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.ALL)
@@ -38,7 +38,7 @@
                 .setBackground(Color.parseColor("#96a993"))
                 .setImpl(CrazyShadow.IMPL_DRAW)
                 .action(findViewById(R.id.relay_draw1));
-    ​```
+    ​
 
 更多示例代码可以查看 [MainActivity](https://github.com/Hitomis/CrazyShadow/blob/master/app/src/main/java/com/hitomi/crazyshadow/MainActivity.java)
 
