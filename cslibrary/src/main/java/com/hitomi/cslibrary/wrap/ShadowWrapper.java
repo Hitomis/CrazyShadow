@@ -36,9 +36,9 @@ public class ShadowWrapper implements ShadowHandler {
 
     private OnMeasureListener measureListener;
 
-    private boolean init;
-
     private CrazyShadowAttr attr;
+
+    private boolean init;
 
     public ShadowWrapper(Context context, CrazyShadowAttr attr) {
         this.context = context;
@@ -58,7 +58,7 @@ public class ShadowWrapper implements ShadowHandler {
         shadowLayout.setLayoutParams(layoutParams);
         parent.addView(shadowLayout, orignalIndex);
 
-        if (attr.getBackground() !=0) {
+        if (attr.getBackground() != 0) {
             orignalDrawable = contentView.getBackground();
             contentView.setBackgroundColor(attr.getBackground());
         }

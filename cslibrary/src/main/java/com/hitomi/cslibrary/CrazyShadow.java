@@ -40,6 +40,8 @@ public class CrazyShadow {
 
     private ShadowHandler shadowHandler;
 
+    private boolean makeShadow;
+
     private CrazyShadow(Context context) {
         this.context = context;
     }
@@ -55,11 +57,17 @@ public class CrazyShadow {
     }
 
     public void make(View view) {
-        shadowHandler.makeShadow(view);
+        if (!makeShadow) {
+            shadowHandler.makeShadow(view);
+            makeShadow = true;
+        }
     }
 
     public void remove() {
-        shadowHandler.removeShadow();
+        if (makeShadow) {
+            shadowHandler.removeShadow();
+            makeShadow = false;
+        }
     }
 
     public static class Builder {
