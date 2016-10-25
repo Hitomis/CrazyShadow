@@ -58,6 +58,10 @@ public class CrazyShadow {
         shadowHandler.makeShadow(view);
     }
 
+    public void remove() {
+        shadowHandler.removeShadow();
+    }
+
     public static class Builder {
 
         private Context context;
@@ -205,8 +209,10 @@ public class CrazyShadow {
          * 绘制阴影的启动方法，你需要保证参数已经正确设置完毕
          * @param view 被添加阴影的 View
          */
-        public void action(View view) {
-            create().make(view);
+        public CrazyShadow action(View view) {
+            CrazyShadow crazyShadow = create();
+            crazyShadow.make(view);
+            return crazyShadow;
         }
     }
 }

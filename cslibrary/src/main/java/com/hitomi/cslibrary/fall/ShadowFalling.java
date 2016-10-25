@@ -2,6 +2,7 @@ package com.hitomi.cslibrary.fall;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -13,6 +14,9 @@ import com.hitomi.cslibrary.base.CrazyShadowDirection;
 import com.hitomi.cslibrary.base.ShadowHandler;
 import com.hitomi.cslibrary.base.CornerShadowView;
 import com.hitomi.cslibrary.base.EdgeShadowView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hitomi on 2016/10/19. <br/>
@@ -31,6 +35,8 @@ public class ShadowFalling implements ShadowHandler {
     private Context context;
 
     private View contentView;
+
+    private Drawable orignalDrawable;
 
     private boolean init;
 
@@ -269,9 +275,31 @@ public class ShadowFalling implements ShadowHandler {
     public void makeShadow(View view) {
         contentView = view;
         init = true;
-        if (attr.getBackground() !=0)
-        contentView.setBackgroundColor(attr.getBackground());
+        if (attr.getBackground() !=0) {
+            orignalDrawable = contentView.getBackground();
+            contentView.setBackgroundColor(attr.getBackground());
+        }
         contentView.getViewTreeObserver().addOnGlobalLayoutListener(new OnMeasureListener());
+    }
+
+    @Override
+    public void removeShadow() {
+        FrameLayout parentLayout = getParentContainer();
+        List<View> shadowViewList = new ArrayList<>();
+        int childCount = parentLayout.getChildCount();
+        View child;
+        for (int i = 0; i < childCount; i++) {
+            child = parentLayout.getChildAt(i);
+            if (child instanceof EdgeShadowView || child instanceof CornerShadowView)
+                shadowViewList.add(child);
+        }
+
+        for (View shadowView : shadowViewList) {
+            parentLayout.removeView(shadowView);
+        }
+        if (attr.getBackground() != 0) {
+            contentView.setBackgroundDrawable(orignalDrawable);
+        }
     }
 
     private class OnMeasureListener implements ViewTreeObserver.OnGlobalLayoutListener {

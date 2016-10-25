@@ -1,6 +1,7 @@
 package com.hitomi.cslibrary.wrap;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,8 @@ public class ShadowWrapper implements ShadowHandler {
 
     private RelativeLayout shadowLayout;
 
+    private Drawable orignalDrawable;
+
     private OnMeasureListener measureListener;
 
     private boolean init;
@@ -55,8 +58,10 @@ public class ShadowWrapper implements ShadowHandler {
         shadowLayout.setLayoutParams(layoutParams);
         parent.addView(shadowLayout, orignalIndex);
 
-        if (attr.getBackground() !=0)
-        contentView.setBackgroundColor(attr.getBackground());
+        if (attr.getBackground() !=0) {
+            orignalDrawable = contentView.getBackground();
+            contentView.setBackgroundColor(attr.getBackground());
+        }
         shadowLayout.addView(contentView, getContentViewLayoutParams());
     }
 
@@ -303,6 +308,40 @@ public class ShadowWrapper implements ShadowHandler {
         contentView = view;
         init = true;
         contentView.getViewTreeObserver().addOnGlobalLayoutListener(measureListener);
+    }
+
+    @Override
+    public void removeShadow() {
+        /**
+         ViewGroup parent = (ViewGroup) contentView.getParent();
+         int orignalIndex = parent.indexOfChild(contentView);
+         parent.removeView(contentView);
+
+         shadowLayout = new RelativeLayout(context);
+         ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
+         layoutParams.width = contentView.getWidth();
+         layoutParams.height = contentView.getHeight();
+         shadowLayout.setLayoutParams(layoutParams);
+         parent.addView(shadowLayout, orignalIndex);
+
+         if (attr.getBackground() !=0)
+         contentView.setBackgroundColor(attr.getBackground());
+         shadowLayout.addView(contentView, getContentViewLayoutParams());
+         */
+
+        ViewGroup parent = (ViewGroup) shadowLayout.getParent();
+        int orignalIndex = parent.indexOfChild(shadowLayout);
+        parent.removeView(shadowLayout);
+
+        ViewGroup.LayoutParams contentViewLP = shadowLayout.getLayoutParams();
+        contentViewLP.width = shadowLayout.getWidth();
+        contentViewLP.height = shadowLayout.getHeight();
+        contentView.setLayoutParams(contentViewLP);
+        parent.addView(contentView, orignalIndex);
+
+        if (attr.getBackground() != 0) {
+            contentView.setBackgroundDrawable(orignalDrawable);
+        }
     }
 
     private class OnMeasureListener implements ViewTreeObserver.OnGlobalLayoutListener {

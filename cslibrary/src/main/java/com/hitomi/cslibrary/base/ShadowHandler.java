@@ -9,4 +9,6 @@ public interface ShadowHandler {
 
     void makeShadow(View view);
 
+    void removeShadow();
+
 }
