@@ -269,6 +269,8 @@ public class ShadowFalling implements ShadowHandler {
     public void makeShadow(View view) {
         contentView = view;
         init = true;
+        if (attr.getBackground() !=0)
+        contentView.setBackgroundColor(attr.getBackground());
         contentView.getViewTreeObserver().addOnGlobalLayoutListener(new OnMeasureListener());
     }
 

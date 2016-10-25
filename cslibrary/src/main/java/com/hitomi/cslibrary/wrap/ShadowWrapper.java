@@ -55,6 +55,8 @@ public class ShadowWrapper implements ShadowHandler {
         shadowLayout.setLayoutParams(layoutParams);
         parent.addView(shadowLayout, orignalIndex);
 
+        if (attr.getBackground() !=0)
+        contentView.setBackgroundColor(attr.getBackground());
         shadowLayout.addView(contentView, getContentViewLayoutParams());
     }
 

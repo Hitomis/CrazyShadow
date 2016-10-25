@@ -19,7 +19,6 @@ public class ShadowDrawer implements ShadowHandler {
     private RoundRectShadowDrawable drawable;
 
     public ShadowDrawer(CrazyShadowAttr attr) {
-        attr.getBackground();
         drawable = new RoundRectShadowDrawable(attr.getBackground(),
                 attr.getColors(), attr.getCorner(),
                 attr.getShadowRadius(), attr.getShadowRadius());
