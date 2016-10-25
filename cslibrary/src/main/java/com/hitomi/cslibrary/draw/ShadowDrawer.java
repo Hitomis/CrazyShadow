@@ -1,5 +1,6 @@
 package com.hitomi.cslibrary.draw;
 
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 
 import com.hitomi.cslibrary.base.CrazyShadowAttr;
@@ -16,16 +17,25 @@ import com.hitomi.cslibrary.base.ShadowHandler;
  */
 public class ShadowDrawer implements ShadowHandler {
 
-    private RoundRectShadowDrawable drawable;
+    private CrazyShadowAttr attr;
 
     public ShadowDrawer(CrazyShadowAttr attr) {
-        drawable = new RoundRectShadowDrawable(attr.getBackground(),
-                attr.getColors(), attr.getCorner(),
-                attr.getShadowRadius(), attr.getShadowRadius());
+        this.attr = attr;
     }
 
     @Override
     public void makeShadow(View view) {
+        RoundRectShadowDrawable drawable;
+        if (attr.getBackground() != 0) {
+            drawable = new RoundRectShadowDrawable(
+                    attr.getBackground(), attr.getColors(), attr.getCorner(),
+                    attr.getShadowRadius(), attr.getShadowRadius());
+        } else {
+            ColorDrawable colorDrawable = (ColorDrawable) view.getBackground();
+            drawable = new RoundRectShadowDrawable(
+                    colorDrawable.getColor(), attr.getColors(), attr.getCorner(),
+                    attr.getShadowRadius(), attr.getShadowRadius());
+        }
         view.setBackgroundDrawable(drawable);
     }
 }

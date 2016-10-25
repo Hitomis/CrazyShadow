@@ -75,7 +75,7 @@ public class CrazyShadow {
         private int baseShadowColor;
 
         /**
-         * 针对 {@link #IMPL_DRAW} 形式的方设置阴影时需要的背景色
+         * 背景色
          */
         private int background;
 
@@ -132,8 +132,7 @@ public class CrazyShadow {
         }
 
         /**
-         * 仅仅对 {@link #IMPL_DRAW} 形式的方设置阴影时需要的属性, 用来设置
-         * Drawable 需要的背景色
+         * 背景色
          * @param background
          * @return Builder
          */
