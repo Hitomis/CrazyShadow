@@ -36,6 +36,8 @@ public class ShadowFalling implements ShadowHandler {
 
     private View contentView;
 
+    private List<View> shadowViewList;
+
     private Drawable orignalDrawable;
 
     private boolean init;
@@ -43,6 +45,7 @@ public class ShadowFalling implements ShadowHandler {
     public ShadowFalling(Context context, CrazyShadowAttr attr) {
         this.context = context;
         this.attr = attr;
+        shadowViewList = new ArrayList<>();
     }
 
     private void addShadow() {
@@ -102,10 +105,12 @@ public class ShadowFalling implements ShadowHandler {
         }
         parentLp.leftMargin = (int) leftMargin;
         parentLp.topMargin = (int) topMargin;
-        parentLayout.addView(edgeShadowBuilder
+        View leftEdgeShadow = edgeShadowBuilder
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.LEFT)
-                .create(), parentLp);
+                .create();
+        shadowViewList.add(leftEdgeShadow);
+        parentLayout.addView(leftEdgeShadow, parentLp);
     }
 
     private void decorateTop(EdgeShadowView.Builder edgeShadowBuilder, FrameLayout parentLayout) {
@@ -132,10 +137,12 @@ public class ShadowFalling implements ShadowHandler {
         }
         parentLp.leftMargin = (int) leftMargin;
         parentLp.topMargin = (int) topMargin;
-        parentLayout.addView(edgeShadowBuilder
+        View topEdgeShadow = edgeShadowBuilder
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.TOP)
-                .create(), parentLp);
+                .create();
+        shadowViewList.add(topEdgeShadow);
+        parentLayout.addView(topEdgeShadow, parentLp);
     }
 
     private void decorateRight(EdgeShadowView.Builder edgeShadowBuilder, FrameLayout parentLayout) {
@@ -162,10 +169,12 @@ public class ShadowFalling implements ShadowHandler {
         }
         parentLp.leftMargin = (int) leftMargin;
         parentLp.topMargin = (int) topMargin;
-        parentLayout.addView(edgeShadowBuilder
+        View rightEdgeShadow = edgeShadowBuilder
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.RIGHT)
-                .create(), parentLp);
+                .create();
+        shadowViewList.add(rightEdgeShadow);
+        parentLayout.addView(rightEdgeShadow, parentLp);
     }
 
     private void decorateBottom(EdgeShadowView.Builder edgeShadowBuilder, FrameLayout parentLayout) {
@@ -192,10 +201,12 @@ public class ShadowFalling implements ShadowHandler {
         }
         parentLp.leftMargin = (int) leftMargin;
         parentLp.topMargin = (int) topMargin;
-        parentLayout.addView(edgeShadowBuilder
+        View bottomEdgeShadow = edgeShadowBuilder
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.BOTTOM)
-                .create(), parentLp);
+                .create();
+        shadowViewList.add(bottomEdgeShadow);
+        parentLayout.addView(bottomEdgeShadow, parentLp);
     }
 
     private void addCornerShadow() {
@@ -227,9 +238,11 @@ public class ShadowFalling implements ShadowHandler {
         parentLp.leftMargin = (int) (contentView.getLeft() - attr.getShadowRadius());
         parentLp.topMargin = (int) (contentView.getTop() - attr.getShadowRadius());
 
-        parentLayout.addView(cornerShadowBuilder
+        View leftTopCorner = cornerShadowBuilder
                 .setDirection(CrazyShadowDirection.LEFT_TOP)
-                .create(), parentLp);
+                .create();
+        shadowViewList.add(leftTopCorner);
+        parentLayout.addView(leftTopCorner, parentLp);
     }
 
     private void decorateRightTop(CornerShadowView.Builder cornerShadowBuilder, FrameLayout parentLayout) {
@@ -240,9 +253,11 @@ public class ShadowFalling implements ShadowHandler {
         parentLp.leftMargin = (int) (contentView.getRight() - attr.getCorner());
         parentLp.topMargin = (int) (contentView.getTop() - attr.getShadowRadius());
 
-        parentLayout.addView(cornerShadowBuilder
+        View rightTopCorner = cornerShadowBuilder
                 .setDirection(CrazyShadowDirection.TOP_RIGHT)
-                .create(), parentLp);
+                .create();
+        shadowViewList.add(rightTopCorner);
+        parentLayout.addView(rightTopCorner, parentLp);
     }
 
     private void decorateRightBottom(CornerShadowView.Builder cornerShadowBuilder, FrameLayout parentLayout) {
@@ -253,9 +268,11 @@ public class ShadowFalling implements ShadowHandler {
         parentLp.leftMargin = (int) (contentView.getRight() - attr.getCorner());
         parentLp.topMargin = (int) (contentView.getBottom() - attr.getCorner());
 
-        parentLayout.addView(cornerShadowBuilder
+        View rightBottomCorner = cornerShadowBuilder
                 .setDirection(CrazyShadowDirection.RIGHT_BOTTOM)
-                .create(), parentLp);
+                .create();
+        shadowViewList.add(rightBottomCorner);
+        parentLayout.addView(rightBottomCorner, parentLp);
     }
 
     private void decorateLeftBottom(CornerShadowView.Builder cornerShadowBuilder, FrameLayout parentLayout) {
@@ -266,9 +283,11 @@ public class ShadowFalling implements ShadowHandler {
         parentLp.leftMargin = (int) (contentView.getLeft() - attr.getShadowRadius());
         parentLp.topMargin = (int) (contentView.getBottom() - attr.getCorner());
 
-        parentLayout.addView(cornerShadowBuilder
+        View leftBottomCorner = cornerShadowBuilder
                 .setDirection(CrazyShadowDirection.BOTTOM_LEFT)
-                .create(), parentLp);
+                .create();
+        shadowViewList.add(leftBottomCorner);
+        parentLayout.addView(leftBottomCorner, parentLp);
     }
 
     @Override
@@ -285,15 +304,6 @@ public class ShadowFalling implements ShadowHandler {
     @Override
     public void removeShadow() {
         FrameLayout parentLayout = getParentContainer();
-        List<View> shadowViewList = new ArrayList<>();
-        int childCount = parentLayout.getChildCount();
-        View child;
-        for (int i = 0; i < childCount; i++) {
-            child = parentLayout.getChildAt(i);
-            if (child instanceof EdgeShadowView || child instanceof CornerShadowView)
-                shadowViewList.add(child);
-        }
-
         for (View shadowView : shadowViewList) {
             parentLayout.removeView(shadowView);
         }
