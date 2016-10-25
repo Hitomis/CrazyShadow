@@ -20,32 +20,71 @@ public class MainActivity extends AppCompatActivity {
         new CrazyShadow.Builder()
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.BOTTOM)
-                .setShadowRadius(10)
+                .setShadowRadius(dip2Px(5))
                 .setImpl(CrazyShadow.IMPL_WRAP)
                 .action(findViewById(R.id.relay_title));
 
+
+        /*********************************************************************************/
         new CrazyShadow.Builder()
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.ALL)
-                .setShadowRadius(6)
-                .setCorner(6)
-                .setBackground(Color.parseColor("#d07784"))
+                .setShadowRadius(dip2Px(3))
+                .setBaseShadowColor(Color.RED)
                 .setImpl(CrazyShadow.IMPL_DRAW)
-                .action(findViewById(R.id.relay_draw));
+                .action(findViewById(R.id.relay_draw0));
 
         new CrazyShadow.Builder()
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.ALL)
-                .setShadowRadius(6)
+                .setShadowRadius(dip2Px(3))
+                .setCorner(dip2Px(5))
+                .setBackground(Color.parseColor("#96a993"))
+                .setImpl(CrazyShadow.IMPL_DRAW)
+                .action(findViewById(R.id.relay_draw1));
+
+        new CrazyShadow.Builder()
+                .setContext(this)
+                .setDirection(CrazyShadowDirection.ALL)
+                .setShadowRadius(dip2Px(3))
                 .setImpl(CrazyShadow.IMPL_FALL)
-                .action(findViewById(R.id.relay_fall));
+                .action(findViewById(R.id.relay_fall0));
 
         new CrazyShadow.Builder()
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.ALL)
-                .setShadowRadius(6)
-                .setImpl(CrazyShadow.IMPL_WRAP)
-                .action(findViewById(R.id.relay_wrap));
+                .setShadowRadius(dip2Px(3))
+                .setCorner(dip2Px(4))
+                .setImpl(CrazyShadow.IMPL_FALL)
+                .action(findViewById(R.id.relay_fall1));
 
+        new CrazyShadow.Builder()
+                .setContext(this)
+                .setDirection(CrazyShadowDirection.ALL)
+                .setShadowRadius(dip2Px(3))
+                .setImpl(CrazyShadow.IMPL_WRAP)
+                .action(findViewById(R.id.relay_wrap0));
+
+        new CrazyShadow.Builder()
+                .setContext(this)
+                .setDirection(CrazyShadowDirection.ALL)
+                .setShadowRadius(dip2Px(5))
+                .setCorner(dip2Px(8))
+                .setImpl(CrazyShadow.IMPL_WRAP)
+                .action(findViewById(R.id.relay_wrap1));
+
+        new CrazyShadow.Builder()
+                .setContext(this)
+                .setDirection(CrazyShadowDirection.TOP)
+                .setShadowRadius(dip2Px(5))
+                .setImpl(CrazyShadow.IMPL_WRAP)
+                .action(findViewById(R.id.relay_shadow));
     }
+
+
+    public int dip2Px(float dpValue) {
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
 }

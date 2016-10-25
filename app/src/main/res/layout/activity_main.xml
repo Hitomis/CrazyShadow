@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.hitomi.crazyshadow.MainActivity">
 
@@ -17,49 +16,134 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="我的标题"
+            android:text="带阴影的标题栏"
             android:textColor="@android:color/white" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relay_draw"
+        android:id="@+id/relay_draw0"
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:background="#d07784"
-        android:orientation="horizontal" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="直角drawable背景[修改了阴影色]" />
+
+    </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relay_fall"
+        android:id="@+id/relay_draw1"
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:background="#96d0c7" />
+        android:background="#d07784"
+        android:orientation="horizontal">
 
-    <RelativeLayout
-        android:id="@+id/relay_wrap"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:background="#c376d0" />
-
-    <android.support.v7.widget.CardView
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="6dp"
-        app:cardElevation="6dp">
-
-
-        <FrameLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#72b172" />
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="圆角drawable背景[修改了背景色]" />
 
-    </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relay_fall0"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="#96d0c7">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="沉降式阴影，不修改原 View ，在周围直接添加阴影。整体 View 看起来变大。但原 View 不能动"
+            android:textSize="10sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relay_fall1"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_fall">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="沉降式阴影，设置 shape_fall （圆角） 的背景后，CrazyShadow可以设置圆角阴影以适配圆角的 drawable"
+            android:textSize="10sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relay_wrap0"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="#c376d0">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="包装式阴影，修改原 View 大小，并添加阴影效果"
+            android:textSize="10sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relay_wrap1"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_wrap">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="包装式阴影，设置 shape_wrap （圆角） 的背景后，CrazyShadow可以设置圆角阴影以适配圆角的 drawable"
+            android:textSize="9sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/relay_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:background="#23df77">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="可与指定阴影附加在 View 的方位"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>
