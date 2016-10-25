@@ -75,6 +75,15 @@ public class MainActivity extends AppCompatActivity {
 
         new CrazyShadow.Builder()
                 .setContext(this)
+                .setDirection(CrazyShadowDirection.ALL)
+                .setShadowRadius(dip2Px(3))
+                .setBackground(Color.parseColor("#a0a0a0"))
+                .setBaseShadowColor(Color.parseColor("#a0a0a0"))
+                .setImpl(CrazyShadow.IMPL_WRAP)
+                .action(findViewById(R.id.relay_shadow0));
+
+        new CrazyShadow.Builder()
+                .setContext(this)
                 .setDirection(CrazyShadowDirection.TOP)
                 .setShadowRadius(dip2Px(5))
                 .setImpl(CrazyShadow.IMPL_WRAP)

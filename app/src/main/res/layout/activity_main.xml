@@ -128,6 +128,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:id="@+id/relay_shadow0"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="可以设置 CrazyShadow 的 baseShadowColor 或者 shadowColors 来设置阴影色 / 可设置 background 直接修改背景色"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/relay_shadow"
@@ -140,7 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="可与指定阴影附加在 View 的方位"/>
+                android:text="可指定阴影附加在 View 的方位" />
 
         </RelativeLayout>
 
