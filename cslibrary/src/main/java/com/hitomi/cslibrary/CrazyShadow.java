@@ -156,7 +156,7 @@ public class CrazyShadow {
          * 对 {@link #IMPL_DRAW} 形式表示为背景的圆角角度.<br/>
          * 对 {@link #IMPL_WRAP} 与 {@link #IMPL_FALL}
          * 表示为阴影顶点的内侧弧度。以适配被设置的 View 是圆角的情况
-         * @param corner
+         * @param corner [unit : pixels]
          * @return Builder
          */
         public Builder setCorner(float corner) {
@@ -166,7 +166,7 @@ public class CrazyShadow {
 
         /**
          * 设置阴影半径
-         * @param shadowRadius
+         * @param shadowRadius [unit : pixels]
          * @return Builder
          */
         public Builder setShadowRadius(float shadowRadius) {

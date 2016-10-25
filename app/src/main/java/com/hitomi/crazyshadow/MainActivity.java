@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.hitomi.cslibrary.CrazyShadow;
 import com.hitomi.cslibrary.base.CrazyShadowDirection;
@@ -28,29 +27,25 @@ public class MainActivity extends AppCompatActivity {
         new CrazyShadow.Builder()
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.ALL)
-                .setShadowRadius(10)
+                .setShadowRadius(6)
+                .setCorner(6)
                 .setBackground(Color.parseColor("#d07784"))
                 .setImpl(CrazyShadow.IMPL_DRAW)
-                .action(findViewById(R.id.btn_draw));
+                .action(findViewById(R.id.relay_draw));
 
-        // TODO: 如果是ViewGroup 不处理 padding， 反之需要处理 padding
-        View fallView = findViewById(R.id.btn_fall);
-        fallView.setBackground(null);
         new CrazyShadow.Builder()
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.ALL)
-                .setShadowRadius(10)
+                .setShadowRadius(6)
                 .setImpl(CrazyShadow.IMPL_FALL)
-                .action(fallView);
+                .action(findViewById(R.id.relay_fall));
 
-        View wrapView = findViewById(R.id.btn_wrap);
-        wrapView.setBackground(null);
         new CrazyShadow.Builder()
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.ALL)
-                .setShadowRadius(10)
+                .setShadowRadius(6)
                 .setImpl(CrazyShadow.IMPL_WRAP)
-                .action(wrapView);
+                .action(findViewById(R.id.relay_wrap));
 
     }
 }
