@@ -14,7 +14,7 @@ import com.hitomi.cslibrary.base.ShadowHandler;
  *
  * 因为背景的最大尺寸为原 View 的尺寸，所以设置了阴影
  * 后，原 View 大小会依据配置的阴影尺寸发生变化，并且
- * 原 View 的位置会发生向下的偏移来显示出阴影的效果
+ * 原 View 的位置会发生向上的偏移来显示出阴影的效果
  */
 public class ShadowDrawer implements ShadowHandler {
 

@@ -1,8 +1,6 @@
 package com.hitomi.crazyshadow;
 
-import android.annotation.TargetApi;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -32,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private CrazyShadow shadowCrazyShadow0, shadowCrazyShadow1;
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
