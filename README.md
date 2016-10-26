@@ -18,7 +18,7 @@
 
 2. fall : 以 View 的根视图（DecorView 中的 FrameLayout） 中添加一层阴影效果。不过因为与 View 不在一个布局层面上，所以当发生用户交互使原 View 的位置发生改变后，阴影还是会留在原来的位置。此种方式只能在位置不会发生改变的 View 上使用。慎用啊
 
-3. drawable : 直接创建一个附带阴影效果的矩形（支持圆角）作为 View 的 background。
+3. drawable : 直接创建一个附带阴影效果的矩形（支持圆角） drawable 作为 View 的 background, 简单粗暴，不过因为 background 的最大尺寸为原 View 的尺寸，所以设置了阴影后，原 View 大小会依据配置的阴影大小发生变化，并且原 View 的位置会向上的偏移来显示出阴影的效果。
 
 # Preview
 
