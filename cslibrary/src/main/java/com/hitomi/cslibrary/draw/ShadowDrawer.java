@@ -1,5 +1,6 @@
 package com.hitomi.cslibrary.draw;
 
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
@@ -22,7 +23,7 @@ public class ShadowDrawer implements ShadowHandler {
 
     private View view;
 
-    private Drawable orignalDrawable;
+    private Drawable orignalDrawable, shadowDrawable;
 
     public ShadowDrawer(CrazyShadowAttr attr) {
         this.attr = attr;
@@ -32,23 +33,38 @@ public class ShadowDrawer implements ShadowHandler {
     public void makeShadow(View view) {
         this.view = view;
         orignalDrawable = view.getBackground();
-        RoundRectShadowDrawable drawable;
+        int background;
         if (attr.getBackground() != 0) {
-            drawable = new RoundRectShadowDrawable(
-                    attr.getBackground(), attr.getColors(), attr.getCorner(),
-                    attr.getShadowRadius(), attr.getShadowRadius());
+            background = attr.getBackground();
         } else {
             ColorDrawable colorDrawable = (ColorDrawable) view.getBackground();
-            drawable = new RoundRectShadowDrawable(
-                    colorDrawable.getColor(), attr.getColors(), attr.getCorner(),
-                    attr.getShadowRadius(), attr.getShadowRadius());
+            if (colorDrawable == null) {
+                background = Color.WHITE;
+            } else {
+                background = colorDrawable.getColor();
+            }
         }
-        view.setBackgroundDrawable(drawable);
+        shadowDrawable = new RoundRectShadowDrawable(
+                background, attr.getColors(), attr.getCorner(),
+                attr.getShadowRadius(), attr.getShadowRadius());
+        view.setBackgroundDrawable(shadowDrawable);
     }
 
     @Override
     public void removeShadow() {
         if (view != null && view.getBackground() instanceof RoundRectShadowDrawable)
             view.setBackgroundDrawable(orignalDrawable);
+    }
+
+    @Override
+    public void hideShadow() {
+        if (view != null && view.getBackground() instanceof RoundRectShadowDrawable)
+            view.setBackgroundDrawable(orignalDrawable);
+    }
+
+    @Override
+    public void showShadow() {
+        if (view  == null || shadowDrawable == null) return ;
+        view.setBackgroundDrawable(shadowDrawable);
     }
 }

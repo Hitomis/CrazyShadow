@@ -312,6 +312,26 @@ public class ShadowFalling implements ShadowHandler {
         }
     }
 
+    @Override
+    public void hideShadow() {
+        for (View shadowView : shadowViewList) {
+            shadowView.setAlpha(0);
+        }
+        if (attr.getBackground() != 0) {
+            contentView.setBackgroundDrawable(orignalDrawable);
+        }
+    }
+
+    @Override
+    public void showShadow() {
+        for (View shadowView : shadowViewList) {
+            shadowView.setAlpha(1);
+        }
+        if (attr.getBackground() !=0 && contentView != null) {
+            contentView.setBackgroundColor(attr.getBackground());
+        }
+    }
+
     private class OnMeasureListener implements ViewTreeObserver.OnGlobalLayoutListener {
         @Override
         public void onGlobalLayout() {

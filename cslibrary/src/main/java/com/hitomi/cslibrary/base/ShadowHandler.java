@@ -11,4 +11,8 @@ public interface ShadowHandler {
 
     void removeShadow();
 
+    void hideShadow();
+
+    void showShadow();
+
 }

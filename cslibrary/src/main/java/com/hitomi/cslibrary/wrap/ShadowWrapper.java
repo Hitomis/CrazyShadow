@@ -52,16 +52,8 @@ public class ShadowWrapper implements ShadowHandler {
         parent.removeView(contentView);
 
         shadowLayout = new RelativeLayout(context);
-        ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
-        layoutParams.width = contentView.getWidth();
-        layoutParams.height = contentView.getHeight();
-        shadowLayout.setLayoutParams(layoutParams);
+        shadowLayout.setLayoutParams(contentView.getLayoutParams());
         parent.addView(shadowLayout, orignalIndex);
-
-        if (attr.getBackground() != 0) {
-            orignalDrawable = contentView.getBackground();
-            contentView.setBackgroundColor(attr.getBackground());
-        }
         shadowLayout.addView(contentView, getContentViewLayoutParams());
     }
 
@@ -307,6 +299,10 @@ public class ShadowWrapper implements ShadowHandler {
     public void makeShadow(View view) {
         contentView = view;
         init = true;
+        if (attr.getBackground() != 0) {
+            orignalDrawable = contentView.getBackground();
+            contentView.setBackgroundColor(attr.getBackground());
+        }
         contentView.getViewTreeObserver().addOnGlobalLayoutListener(measureListener);
     }
 
@@ -318,14 +314,43 @@ public class ShadowWrapper implements ShadowHandler {
         int orignalIndex = parent.indexOfChild(shadowLayout);
         parent.removeView(shadowLayout);
 
-        ViewGroup.LayoutParams contentViewLP = shadowLayout.getLayoutParams();
-        contentViewLP.width = shadowLayout.getWidth();
-        contentViewLP.height = shadowLayout.getHeight();
-        contentView.setLayoutParams(contentViewLP);
+        contentView.setLayoutParams(shadowLayout.getLayoutParams());
         parent.addView(contentView, orignalIndex);
 
         if (attr.getBackground() != 0) {
             contentView.setBackgroundDrawable(orignalDrawable);
+        }
+    }
+
+    @Override
+    public void hideShadow() {
+        setShadowViewAlpha(0);
+        ViewGroup.LayoutParams contentViewLp = contentView.getLayoutParams();
+        contentViewLp.width = shadowLayout.getLayoutParams().width;
+        contentViewLp.height = shadowLayout.getLayoutParams().height;
+        contentView.setLayoutParams(contentViewLp);
+        if (attr.getBackground() != 0) {
+            contentView.setBackgroundDrawable(orignalDrawable);
+        }
+    }
+
+    @Override
+    public void showShadow() {
+        setShadowViewAlpha(1);
+        contentView.setLayoutParams(getContentViewLayoutParams());
+        if (attr.getBackground() != 0 && contentView != null) {
+            contentView.setBackgroundColor(attr.getBackground());
+        }
+    }
+
+    private void setShadowViewAlpha(int alpha) {
+        int childCount = shadowLayout.getChildCount();
+        View child;
+        for (int i = 0; i < childCount; i++) {
+            child = shadowLayout.getChildAt(i);
+            if (child instanceof EdgeShadowView || child instanceof CornerShadowView) {
+                child.setAlpha(alpha);
+            }
         }
     }
 

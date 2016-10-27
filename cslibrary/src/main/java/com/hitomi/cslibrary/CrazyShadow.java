@@ -70,6 +70,14 @@ public class CrazyShadow {
         }
     }
 
+    public void show() {
+        shadowHandler.showShadow();
+    }
+
+    public void hide() {
+        shadowHandler.hideShadow();
+    }
+
     public static class Builder {
 
         private Context context;
