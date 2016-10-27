@@ -56,6 +56,10 @@ public class CrazyShadow {
         }
     }
 
+    /**
+     * 为 View 添加阴影效果
+     * @param view
+     */
     public void make(View view) {
         if (!makeShadow) {
             shadowHandler.makeShadow(view);
@@ -63,6 +67,9 @@ public class CrazyShadow {
         }
     }
 
+    /**
+     * 将添加的阴影效果移除
+     */
     public void remove() {
         if (makeShadow) {
             shadowHandler.removeShadow();
@@ -70,10 +77,16 @@ public class CrazyShadow {
         }
     }
 
+    /**
+     * 显示阴影效果
+     */
     public void show() {
         shadowHandler.showShadow();
     }
 
+    /**
+     * 隐藏阴影效果
+     */
     public void hide() {
         shadowHandler.hideShadow();
     }

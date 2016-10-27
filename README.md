@@ -43,6 +43,7 @@
 更多示例代码可以查看 [MainActivity](https://github.com/Hitomis/CrazyShadow/blob/master/app/src/main/java/com/hitomi/crazyshadow/MainActivity.java)
 
 # Attribute
+
 | 属性 | 说明 |
 | :--: |  :--: |
 | impl | 以何种方式添加阴影，支持 wrap、fall、drawable 三种方式 |
@@ -52,6 +53,15 @@
 | corner | 阴影顶点的内侧弧度。以适配被设置的 View 是圆角的情况， 对使用 drawable 方式设置阴影时，该属性表示为圆角矩形背景的圆角角度 |
 | shadowRadius | 阴影大小 |
 | direction | 设定阴影在 View 上显示的方位， 支持的方位详情可以查看 [CrazyShadowDirection](https://github.com/Hitomis/CrazyShadow/blob/master/cslibrary/src/main/java/com/hitomi/cslibrary/base/CrazyShadowDirection.java) |
+
+# Method
+
+| 方法 | 说明 |
+| :--: | :--: |
+| make | 为 View 添加阴影效果， 使用 Builder 的 action 方法时会自动调用 |
+| remove | 移除阴影|
+| hide | 隐藏阴影，与 remove 不同的是，hide 只是隐藏了 View 周围的阴影效果，并没有移除 |
+| show | 如果调用了 hide ，可以再使用 show 将阴影效果显示出来 |
 
 #Licence
 
