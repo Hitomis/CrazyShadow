@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private CrazyShadow shadowCrazyShadow0, shadowCrazyShadow1;
 
+    private boolean titleFlag = true, draw0Flag = true, draw1Flag = true, fall0Flag = true, fall1Flag = true;
+
+    private boolean wrap0Flag = true, wrap1Flag = true, shadow0Flag = true, shadow1Flag = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView();
         initShadow();
         initListener();
-
     }
 
     private void initListener() {
@@ -57,31 +60,76 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.relay_title:
-                titleCrazyShadow.remove();
+                if (titleFlag) {
+                    titleCrazyShadow.hide();
+                } else {
+                    titleCrazyShadow.show();
+                }
+                titleFlag = !titleFlag;
                 break;
             case R.id.relay_draw0:
-                drawCrazyShadow0.remove();
+                if (draw0Flag) {
+                    drawCrazyShadow0.hide();
+                } else {
+                    drawCrazyShadow0.show();
+                }
+                draw0Flag = !draw0Flag;
                 break;
             case R.id.relay_draw1:
-                drawCrazyShadow1.remove();
+                if (draw1Flag) {
+                    drawCrazyShadow1.hide();
+                } else {
+                    drawCrazyShadow1.show();
+                }
+                draw1Flag = !draw1Flag;
                 break;
             case R.id.relay_fall0:
-                fallCrazyShadow0.remove();
+                if (fall0Flag) {
+                    fallCrazyShadow0.hide();
+                } else {
+                    fallCrazyShadow0.show();
+                }
+                fall0Flag = !fall0Flag;
                 break;
             case R.id.relay_fall1:
-                fallCrazyShadow1.remove();
+                if (fall1Flag) {
+                    fallCrazyShadow1.hide();
+                } else {
+                    fallCrazyShadow1.show();
+                }
+                fall1Flag = !fall1Flag;
                 break;
             case R.id.relay_wrap0:
-                wrapCrazyShadow0.remove();
+                if (wrap0Flag) {
+                    wrapCrazyShadow0.hide();
+                } else {
+                    wrapCrazyShadow0.show();
+                }
+                wrap0Flag = !wrap0Flag;
                 break;
             case R.id.relay_wrap1:
-                wrapCrazyShadow1.remove();
+                if (wrap1Flag) {
+                    wrapCrazyShadow1.hide();
+                } else {
+                    wrapCrazyShadow1.show();
+                }
+                wrap1Flag = !wrap1Flag;
                 break;
             case R.id.relay_shadow0:
-                shadowCrazyShadow0.remove();
+                if (shadow0Flag) {
+                    shadowCrazyShadow0.hide();
+                } else {
+                    shadowCrazyShadow0.show();
+                }
+                shadow0Flag = !shadow0Flag;
                 break;
             case R.id.relay_shadow1:
-                shadowCrazyShadow1.remove();
+                if (shadow1Flag) {
+                    shadowCrazyShadow1.hide();
+                } else {
+                    shadowCrazyShadow1.show();
+                }
+                shadow1Flag = !shadow1Flag;
                 break;
         }
     }
@@ -156,6 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setShadowRadius(dip2Px(5))
                 .setImpl(CrazyShadow.IMPL_WRAP)
                 .action(findViewById(R.id.relay_shadow1));
+
     }
 
     private void initView() {
