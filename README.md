@@ -1,5 +1,7 @@
 # CrazyShadow
 
+[![](https://jitpack.io/v/Hitomis/CrazyShadow.svg)](https://jitpack.io/#Hitomis/CrazyShadow)
+
    CrazyShadow 是一个专门为 View 添加阴影效果的库。 CrazyShadow 支持自定义阴影实现方式、阴影颜色、阴影经度大小、阴影附加方位。
 
 说明：<br/>
