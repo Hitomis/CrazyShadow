@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private View drawView0, drawView1;
 
-    private View fallView0, fallView1;
+    private View floatView0, floatView1;
 
     private View wrapView0, wrapView1;
 
@@ -24,13 +24,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private CrazyShadow drawCrazyShadow0, drawCrazyShadow1;
 
-    private CrazyShadow fallCrazyShadow0, fallCrazyShadow1;
+    private CrazyShadow floatCrazyShadow0, floatCrazyShadow1;
 
     private CrazyShadow wrapCrazyShadow0, wrapCrazyShadow1;
 
     private CrazyShadow shadowCrazyShadow0, shadowCrazyShadow1;
 
-    private boolean titleFlag = true, draw0Flag = true, draw1Flag = true, fall0Flag = true, fall1Flag = true;
+    private boolean titleFlag = true, draw0Flag = true, draw1Flag = true, float0Flag = true, float1Flag = true;
 
     private boolean wrap0Flag = true, wrap1Flag = true, shadow0Flag = true, shadow1Flag = true;
 
@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         titleView.setOnClickListener(this);
         drawView0.setOnClickListener(this);
         drawView1.setOnClickListener(this);
-        fallView0.setOnClickListener(this);
-        fallView1.setOnClickListener(this);
+        floatView0.setOnClickListener(this);
+        floatView1.setOnClickListener(this);
         wrapView0.setOnClickListener(this);
         wrapView1.setOnClickListener(this);
         shadowView0.setOnClickListener(this);
@@ -83,21 +83,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 draw1Flag = !draw1Flag;
                 break;
-            case R.id.relay_fall0:
-                if (fall0Flag) {
-                    fallCrazyShadow0.hide();
+            case R.id.relay_float0:
+                if (float0Flag) {
+                    floatCrazyShadow0.hide();
                 } else {
-                    fallCrazyShadow0.show();
+                    floatCrazyShadow0.show();
                 }
-                fall0Flag = !fall0Flag;
+                float0Flag = !float0Flag;
                 break;
-            case R.id.relay_fall1:
-                if (fall1Flag) {
-                    fallCrazyShadow1.hide();
+            case R.id.relay_float1:
+                if (float1Flag) {
+                    floatCrazyShadow1.hide();
                 } else {
-                    fallCrazyShadow1.show();
+                    floatCrazyShadow1.show();
                 }
-                fall1Flag = !fall1Flag;
+                float1Flag = !float1Flag;
                 break;
             case R.id.relay_wrap0:
                 if (wrap0Flag) {
@@ -159,20 +159,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setImpl(CrazyShadow.IMPL_DRAW)
                 .action(drawView1);
 
-        fallCrazyShadow0 = new CrazyShadow.Builder()
+        floatCrazyShadow0 = new CrazyShadow.Builder()
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.ALL)
                 .setShadowRadius(dip2Px(3))
-                .setImpl(CrazyShadow.IMPL_FALL)
-                .action(fallView0);
+                .setImpl(CrazyShadow.IMPL_FLOAT)
+                .action(floatView0);
 
-        fallCrazyShadow1 = new CrazyShadow.Builder()
+        floatCrazyShadow1 = new CrazyShadow.Builder()
                 .setContext(this)
                 .setDirection(CrazyShadowDirection.ALL)
                 .setShadowRadius(dip2Px(3))
                 .setCorner(dip2Px(4))
-                .setImpl(CrazyShadow.IMPL_FALL)
-                .action(fallView1);
+                .setImpl(CrazyShadow.IMPL_FLOAT)
+                .action(floatView1);
 
         wrapCrazyShadow0 = new CrazyShadow.Builder()
                 .setContext(this)
@@ -211,8 +211,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         titleView = findViewById(R.id.relay_title);
         drawView0 = findViewById(R.id.relay_draw0);
         drawView1 = findViewById(R.id.relay_draw1);
-        fallView0 = findViewById(R.id.relay_fall0);
-        fallView1 = findViewById(R.id.relay_fall1);
+        floatView0 = findViewById(R.id.relay_float0);
+        floatView1 = findViewById(R.id.relay_float1);
         wrapView0 = findViewById(R.id.relay_wrap0);
         wrapView1 = findViewById(R.id.relay_wrap1);
         shadowView0 = findViewById(R.id.relay_shadow0);

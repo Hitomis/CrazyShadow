@@ -57,7 +57,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relay_fall0"
+        android:id="@+id/relay_float0"
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
@@ -74,12 +74,12 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relay_fall1"
+        android:id="@+id/relay_float1"
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:background="@drawable/shape_fall">
+        android:background="@drawable/shape_float">
 
         <TextView
             android:layout_width="match_parent"

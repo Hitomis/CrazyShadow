@@ -1,19 +1,19 @@
-package com.hitomi.cslibrary.fall;
+package com.hitomi.cslibrary.floating;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
+import com.hitomi.cslibrary.base.CornerShadowView;
 import com.hitomi.cslibrary.base.CrazyShadowAttr;
 import com.hitomi.cslibrary.base.CrazyShadowDirection;
-import com.hitomi.cslibrary.base.ShadowHandler;
-import com.hitomi.cslibrary.base.CornerShadowView;
 import com.hitomi.cslibrary.base.EdgeShadowView;
+import com.hitomi.cslibrary.base.ShadowHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +23,12 @@ import java.util.List;
  *
  * 考虑到不希望改变原 View 大小的情况，而又需要阴影效果的情况下。
  * 此种方案应运而生，其原理是在原 View 根布局层面中添加阴影效果。
- * 从 Z 轴的角度看就像是沉淀在原 View 的周围一样。不过因为与原
+ * 从 Z 轴的角度看就像是浮在原 View 的周围一样。不过因为与原
  * View 不在一个布局层面上，所以当发生用户交互使原 View 的位置
  * 发生改变后，阴影还是会留在原来的位置。
  *
  */
-public class ShadowFalling implements ShadowHandler {
+public class ShadowFloating implements ShadowHandler {
 
     private CrazyShadowAttr attr;
 
@@ -42,7 +42,7 @@ public class ShadowFalling implements ShadowHandler {
 
     private boolean init;
 
-    public ShadowFalling(Context context, CrazyShadowAttr attr) {
+    public ShadowFloating(Context context, CrazyShadowAttr attr) {
         this.context = context;
         this.attr = attr;
         shadowViewList = new ArrayList<>();
@@ -55,9 +55,7 @@ public class ShadowFalling implements ShadowHandler {
 
     private FrameLayout getParentContainer() {
         Activity activity = (Activity) context;
-        ViewGroup decorView = (ViewGroup)activity.getWindow().getDecorView();
-        ViewGroup viewGroup = (ViewGroup) decorView.getChildAt(0);
-        return (FrameLayout) viewGroup.getChildAt(1);
+        return (FrameLayout) activity.findViewById(Window.ID_ANDROID_CONTENT);
     }
 
     private void addEdgeShadow() {

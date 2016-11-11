@@ -8,7 +8,7 @@ import com.hitomi.cslibrary.base.CrazyShadowAttr;
 import com.hitomi.cslibrary.base.CrazyShadowDirection;
 import com.hitomi.cslibrary.base.ShadowHandler;
 import com.hitomi.cslibrary.draw.ShadowDrawer;
-import com.hitomi.cslibrary.fall.ShadowFalling;
+import com.hitomi.cslibrary.floating.ShadowFloating;
 import com.hitomi.cslibrary.wrap.ShadowWrapper;
 
 /**
@@ -32,9 +32,9 @@ public class CrazyShadow {
     public static final String IMPL_WRAP = "wrapper";
 
     /**
-     * 以沉淀修饰的形式为你的 View 添加阴影 [{@link com.hitomi.cslibrary.fall.ShadowFalling}]
+     * 以浮动修饰的形式为你的 View 添加阴影 [{@link ShadowFloating}]
      */
-    public static final String IMPL_FALL = "falling";
+    public static final String IMPL_FLOAT = "floating";
 
     private Context context;
 
@@ -52,7 +52,7 @@ public class CrazyShadow {
         } else if (attr.getImpl().equals(IMPL_WRAP)) {
             shadowHandler = new ShadowWrapper(context, attr);
         } else {
-            shadowHandler = new ShadowFalling(context, attr);
+            shadowHandler = new ShadowFloating(context, attr);
         }
     }
 
@@ -98,7 +98,7 @@ public class CrazyShadow {
         /**
          * {@link #IMPL_DRAW} <br/>
          * {@link #IMPL_WRAP} <br/>
-         * {@link #IMPL_FALL} <br/>
+         * {@link #IMPL_FLOAT} <br/>
          */
         private String impl;
 
@@ -119,7 +119,7 @@ public class CrazyShadow {
 
         /**
          * 对 {@link #IMPL_DRAW} 形式表示为背景的圆角角度.<br/>
-         * 对 {@link #IMPL_WRAP} 与 {@link #IMPL_FALL}
+         * 对 {@link #IMPL_WRAP} 与 {@link #IMPL_FLOAT}
          * 表示为阴影顶点的内侧弧度。以适配被设置的 View 是圆角的情况
          */
         private float corner;
@@ -144,7 +144,7 @@ public class CrazyShadow {
          *  以何种方式添加阴影:<br/>
          * {@link #IMPL_DRAW} <br/>
          * {@link #IMPL_WRAP} <br/>
-         * {@link #IMPL_FALL} <br/>
+         * {@link #IMPL_FLOAT} <br/>
          * @param impl
          * @return Builder
          */
@@ -186,7 +186,7 @@ public class CrazyShadow {
 
         /**
          * 对 {@link #IMPL_DRAW} 形式表示为背景的圆角角度.<br/>
-         * 对 {@link #IMPL_WRAP} 与 {@link #IMPL_FALL}
+         * 对 {@link #IMPL_WRAP} 与 {@link #IMPL_FLOAT}
          * 表示为阴影顶点的内侧弧度。以适配被设置的 View 是圆角的情况
          * @param corner [unit : pixels]
          * @return Builder
