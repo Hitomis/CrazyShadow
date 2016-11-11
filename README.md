@@ -2,10 +2,8 @@
 
 说明：<br/>
    CrazyShadow 是一个专门为 View 添加阴影效果的库。
-   设计 CrazyShadow 主要是因为自己一直想为最近编写的 [SpinMenu](https://github.com/Hitomis/SpinMenu)
-与 [ThumbnailMenu](https://github.com/Hitomis/ThumbnailMenu) 还有将要完成的 [ActivitySwitch](https:
-//github.com/Hitomis/ActivitySwitcher) 添加阴影效果，之前在网上一直没有找到合适的可以用的参考案例。所以只能
-自己去编写这样一个 library。
+   设计 CrazyShadow 主要是因为自己一直想为最近编写的 [ActivitySwitch](https://github.com/Hitomis/ActivitySwitcher)
+   添加阴影效果，之前在网上一直没有找到合适的可以用的参考案例。所以只能自己去编写这样一个 library。
 
    而在实际运用在，发现理想总是丰满的，现实很骨感。虽然可以实现优美的效果以及多功能性，但是使用场景比较单一：只能
 为传统的矩形UI（即最终显示效果）添加阴影。为什么结果会是这样呢？大家都知道，一个 View 显示的模型肯定是一个矩形，不
@@ -16,7 +14,7 @@
 
 1. wrap : 以包装 View 的方式添加阴影效果。该方式会改变 View 的大小。因为如果保持 View 大小不变同时又在 View四周添加了阴影，那么 View 的尺寸定会比之前大，这样可能会引起 View 周围其他 View 的位置变化。
 
-2. fall : 以 View 的根视图（DecorView 中的 FrameLayout） 中添加一层阴影效果。不过因为与 View 不在一个布局层面上，所以当发生用户交互使原 View 的位置发生改变后，阴影还是会留在原来的位置。此种方式只能在位置不会发生改变的 View 上使用。慎用啊
+2. float : 以 View 的根视图（ContentFrameLayout） 中添加一层阴影效果。不过因为与 View 不在一个布局层面上，所以当发生用户交互使原 View 的位置发生改变后，阴影还是会留在原来的位置。此种方式只能在位置不会发生改变的 View 上使用。慎用啊
 
 3. drawable : 直接创建一个附带阴影效果的矩形（支持圆角） drawable 作为 View 的 background, 简单粗暴。不过因为 background 的最大尺寸为原 View 的尺寸，所以设置了阴影后，原 View 大小会依据配置的阴影大小发生变化，并且原 View 的位置会向上的偏移来显示出阴影的效果。
 
@@ -46,7 +44,7 @@
 
 | 属性 | 说明 |
 | :--: |  :--: |
-| impl | 以何种方式添加阴影，支持 wrap、fall、drawable 三种方式 |
+| impl | 以何种方式添加阴影，支持 wrap、float、drawable 三种方式 |
 | baseShadowColor | 阴影的基本颜色，即最深的颜色，与 colors 表示为同一个作用， 如果baseShadowColor 与 colors 都不设置，阴影会使用默认颜色|
 | background | 修改 View 的背景色，如果使用 drawable 方式添加阴影，那么该属性必须添加 |
 | colors | 绘制阴影时需要的一个颜色由深到浅且长度为3的数组, 该属性与 baseShadowColor 起同一个作用，如果单单只设置 baseShadowColor 也会自动转换成为 colors  |

@@ -1,4 +1,4 @@
-package com.hitomi.cslibrary.base;
+package com.hitomi.cslibrary.base.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,6 +6,8 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Shader;
 import android.view.View;
+
+import com.hitomi.cslibrary.base.CrazyShadowDirection;
 
 /**
  * Created by hitomi on 2016/10/17.

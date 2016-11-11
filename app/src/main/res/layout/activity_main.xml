@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="沉降式阴影，不修改原 View ，在周围直接添加阴影。整体 View 看起来变大。但原 View 不能动"
+            android:text="浮动式阴影，不修改原 View ，在周围直接添加阴影。整体 View 看起来变大。但原 View 不能动"
             android:textSize="10sp" />
 
     </RelativeLayout>
@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="沉降式阴影，设置 shape_fall （圆角） 的背景后，CrazyShadow可以设置圆角阴影以适配圆角的 drawable"
+            android:text="浮动式阴影，设置 shape_float （圆角） 的背景后，CrazyShadow可以设置圆角阴影以适配圆角的 drawable"
             android:textSize="10sp" />
 
     </RelativeLayout>

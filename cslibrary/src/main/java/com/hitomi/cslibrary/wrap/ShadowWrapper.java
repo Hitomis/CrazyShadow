@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
-import com.hitomi.cslibrary.base.CornerShadowView;
+import com.hitomi.cslibrary.base.view.CornerShadowView;
 import com.hitomi.cslibrary.base.CrazyShadowAttr;
 import com.hitomi.cslibrary.base.CrazyShadowDirection;
-import com.hitomi.cslibrary.base.EdgeShadowView;
+import com.hitomi.cslibrary.base.view.EdgeShadowView;
 import com.hitomi.cslibrary.base.ShadowHandler;
 
 
