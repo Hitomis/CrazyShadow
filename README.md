@@ -1,8 +1,9 @@
 # CrazyShadow
 
+   CrazyShadow 是一个专门为 View 添加阴影效果的库。 CrazyShadow 支持自定义阴影实现方式、阴影颜色、阴影经度大小、阴影附加方位。
+
 说明：<br/>
-   CrazyShadow 是一个专门为 View 添加阴影效果的库。
-   设计 CrazyShadow 主要是因为自己一直想为最近编写的 [ActivitySwitch](https://github.com/Hitomis/ActivitySwitcher)
+   CrazyShadow 主要是因为自己一直想为最近编写的 [ActivitySwitch](https://github.com/Hitomis/ActivitySwitcher)
    添加阴影效果，之前在网上一直没有找到合适的可以用的参考案例。所以只能自己去编写这样一个 library。
 
    而在实际运用在，发现理想总是丰满的，现实很骨感。虽然可以实现优美的效果以及多功能性，但是使用场景比较单一：只能
@@ -20,7 +21,7 @@
 
 # Preview
 
-<img src="preview/crazyshadow.jpg"/>
+<img src="preview/crazyshadow.jpg" width="400" />
 
 # Import
 
