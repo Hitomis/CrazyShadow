@@ -52,7 +52,10 @@ public class ShadowWrapper implements ShadowHandler {
         parent.removeView(contentView);
 
         shadowLayout = new RelativeLayout(context);
-        shadowLayout.setLayoutParams(contentView.getLayoutParams());
+        ViewGroup.LayoutParams contentViewLp = contentView.getLayoutParams();
+        contentViewLp.width = contentView.getWidth();
+        contentViewLp.height = contentView.getHeight();
+        shadowLayout.setLayoutParams(contentViewLp);
         parent.addView(shadowLayout, orignalIndex);
         shadowLayout.addView(contentView, getContentViewLayoutParams());
     }
@@ -155,6 +158,9 @@ public class ShadowWrapper implements ShadowHandler {
                 leftRlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             }
         }
+
+        if (shadowSize <= 0) return ;
+
         EdgeShadowView leftEdgeShadow = edgeShadowBuilder
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.LEFT)
@@ -178,6 +184,9 @@ public class ShadowWrapper implements ShadowHandler {
                 topRlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             }
         }
+
+        if (shadowSize <= 0) return ;
+
         EdgeShadowView topEdgeShadow = edgeShadowBuilder
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.TOP)
@@ -201,6 +210,9 @@ public class ShadowWrapper implements ShadowHandler {
                 rightRlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             }
         }
+
+        if (shadowSize <= 0) return ;
+
         EdgeShadowView rightEdgeShadow = edgeShadowBuilder
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.RIGHT)
@@ -224,6 +236,9 @@ public class ShadowWrapper implements ShadowHandler {
                 bottomRlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             }
         }
+
+        if (shadowSize <= 0) return ;
+
         EdgeShadowView bottomEdgeShadow = edgeShadowBuilder
                 .setShadowSize(shadowSize)
                 .setDirection(CrazyShadowDirection.BOTTOM)
