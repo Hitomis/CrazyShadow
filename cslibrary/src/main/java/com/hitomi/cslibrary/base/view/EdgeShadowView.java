@@ -93,7 +93,6 @@ public class EdgeShadowView extends View {
         this.shadowSize = shadowSize;
     }
 
-    @CrazyShadowDirection
     public void setDirection(@CrazyShadowDirection int direction) {
         this.direction = direction;
     }

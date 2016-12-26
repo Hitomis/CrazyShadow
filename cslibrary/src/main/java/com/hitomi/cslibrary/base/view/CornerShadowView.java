@@ -88,7 +88,6 @@ public class CornerShadowView extends View {
         this.shadowSize = shadowSize;
     }
 
-    @CrazyShadowDirection
     public void setDirection(@CrazyShadowDirection int direction) {
         switch (direction) {
             case CrazyShadowDirection.LEFT_TOP:

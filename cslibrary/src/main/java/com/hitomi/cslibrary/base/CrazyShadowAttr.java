@@ -105,7 +105,6 @@ public class CrazyShadowAttr {
         return direction;
     }
 
-    @CrazyShadowDirection
     public void setDirection(@CrazyShadowDirection int direction) {
         this.direction = direction;
     }
