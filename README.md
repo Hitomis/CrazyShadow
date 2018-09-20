@@ -98,7 +98,7 @@ Step 2. Add the dependency
 | hide | 隐藏阴影，与 remove 不同的是，hide 只是隐藏了 View 周围的阴影效果，并没有移除 |
 | show | 如果调用了 hide ，可以再使用 show 将阴影效果显示出来 | 
 
-#Licence
+# Licence
 
       Copyright 2016 Hitomis, Inc.
 
