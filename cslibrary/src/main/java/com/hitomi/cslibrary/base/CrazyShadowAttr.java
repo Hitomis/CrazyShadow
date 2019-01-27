@@ -16,6 +16,12 @@ public class CrazyShadowAttr {
     private String impl;
 
     /**
+     * Add alpha to the shadow.
+     * Value between 0 and 1
+     */
+    private float shadowAlpha = 1.0f;
+
+    /**
      * 阴影的基本颜色，即最深的颜色, {@link #setBaseShadowColor(int)} 方法会自动计算出
      * 绘制阴影时需要的 {@link #colors}
      */
@@ -50,6 +56,9 @@ public class CrazyShadowAttr {
     @CrazyShadowDirection
     private int direction;
 
+    public CrazyShadowAttr() {
+    }
+
     public String getImpl() {
         return impl;
     }
@@ -58,12 +67,17 @@ public class CrazyShadowAttr {
         this.impl = impl;
     }
 
+    public void setShadowAlpha(float shadowAlpha) {
+        this.shadowAlpha = Math.max(Math.min(shadowAlpha, 1), 0);
+        this.shadowAlpha = shadowAlpha;
+    }
+
     public void setBaseShadowColor(int baseShadowColor) {
         this.baseShadowColor = baseShadowColor;
         if (colors == null) {
             colors = new int[3];
-            colors[0] = ColorUtils.setAlphaComponent(baseShadowColor, 255);
-            colors[1] = ColorUtils.setAlphaComponent(baseShadowColor, 128);
+            colors[0] = ColorUtils.setAlphaComponent(baseShadowColor, (int)(255 * shadowAlpha));
+            colors[1] = ColorUtils.setAlphaComponent(baseShadowColor, (int)(128 * shadowAlpha));
             colors[2] = ColorUtils.setAlphaComponent(baseShadowColor, 0);
         }
     }

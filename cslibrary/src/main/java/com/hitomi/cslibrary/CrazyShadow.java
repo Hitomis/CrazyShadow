@@ -103,6 +103,11 @@ public class CrazyShadow {
         private String impl;
 
         /**
+         * Alpha to the shadow
+         */
+        private float shadowAlpha = 1.0f;
+
+        /**
          * 阴影的基本色
          */
         private int baseShadowColor;
@@ -150,6 +155,15 @@ public class CrazyShadow {
          */
         public Builder setImpl(String impl) {
             this.impl = impl;
+            return this;
+        }
+
+        /**
+         * Add alpha to the shadow.
+         * Value between 0 and 1
+         */
+        public Builder setShadowAlpha(float shadowAlpha) {
+            this.shadowAlpha = Math.max(Math.min(shadowAlpha, 1), 0);
             return this;
         }
 
@@ -223,6 +237,7 @@ public class CrazyShadow {
                 colors = new int[]{0x63000000, 0x32000000, 0x00000000};
             CrazyShadowAttr attr = new CrazyShadowAttr();
             attr.setImpl(impl);
+            attr.setShadowAlpha(shadowAlpha);
             attr.setBaseShadowColor(baseShadowColor);
             attr.setBackground(background);
             attr.setColors(colors);
